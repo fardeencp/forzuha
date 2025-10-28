@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Specially made for Aysha Zuha</title>
+  <style>
+    :root{
+      --bg-1:#FFF6F9;
+      --bg-2:#F0FFF4;
+      --muted:#7B8794;
+      --card:#ffffff;
+      --shadow: 0 8px 30px rgba(34,39,50,0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color:#111827;
+      padding:40px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+    }
+    .container{
+      width:100%;
+      max-width:1100px;
+      background:rgba(255,255,255,0.6);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    header{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px;}
+    .logo{font-size:32px}
+    h1{margin:0;font-size:17px;line-height:1.2;color:#0F172A}
+    p.lead{margin:0;color:var(--muted)}
+
+    main{display:grid;grid-template-columns:1fr 360px;gap:22px}
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
+    .card{
+      background:var(--card);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;box-shadow:0 6px 18px rgba(16,24,40,0.04);cursor:pointer;transition:transform 0.25s ease;
+    }
+    .card:hover{transform:translateY(-6px)}
+    .emoji{font-size:36px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.7)}
+    .name{font-weight:700}
+    .desc{color:var(--muted);font-size:13px}
+
+    footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+
+    .particle{position:fixed;pointer-events:none;z-index:100;font-size:28px;opacity:0;transform:translateY(0) rotate(0deg);}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">ðŸŒ¸</div>
+      <div>
+        <h1>Specially made for Aysha Zuha</h1>
+        <p class="lead">Click any fruit or flower to shower the screen with its magic!</p>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="gallery">
+          <article class="card" data-emoji="ðŸ‡">
+            <div class="emoji">ðŸ‡</div>
+            <div class="name">Green Grapes</div>
+            <div class="desc">Sweet, small and perfect for sharing with friends.</div>
+          </article>
+
+          <article class="card" data-emoji="ðŸ“">
+            <div class="emoji">ðŸ“</div>
+            <div class="name">Strawberries</div>
+            <div class="desc">Bright red, heart-shaped and full of love.</div>
+          </article>
+
+          <article class="card" data-emoji="ðŸ‰">
+            <div class="emoji">ðŸ‰</div>
+            <div class="name">Watermelon</div>
+            <div class="desc">Juicy slices for sunny afternoons.</div>
+          </article>
+
+          <article class="card" data-emoji="ðŸŒ·">
+            <div class="emoji">ðŸŒ·</div>
+            <div class="name">Tulips</div>
+            <div class="desc">Elegant stems that brighten any room.</div>
+          </article>
+
+          <article class="card" data-emoji="ðŸŒº">
+            <div class="emoji">ðŸŒº</div>
+            <div class="name">Peonies</div>
+            <div class="desc">Large, soft blooms for grand gestures.</div>
+          </article>
+
+          <article class="card" data-emoji="ðŸ’">
+            <div class="emoji">ðŸ’</div>
+            <div class="name">Bouquet</div>
+            <div class="desc">A little mix of everything â€” made with care.</div>
+          </article>
+        </div>
+      </section>
+
+      <aside>
+        <h3>Tip:</h3>
+        <p>Click a card to shower the page with that fruit or flower!</p>
+      </aside>
+    </main>
+
+    <footer>
+      <div>Made with ðŸ’š and a little code.</div>
+      <div>Â© Sweet Garden</div>
+    </footer>
+  </div>
+
+  <script>
+    function rand(min,max){return Math.random()*(max-min)+min}
+
+    function createParticle(x, emoji){
+      const el = document.createElement('div');
+      el.className = 'particle';
+      el.textContent = emoji;
+      el.style.left = x + 'px';
+      el.style.top = '-40px';
+      el.style.opacity = 0;
+      document.body.appendChild(el);
+
+      const dur = rand(2200,3800);
+      const endX = x + rand(-120,120);
+      el.animate([
+        {transform:`translateY(0) rotate(0deg)`,opacity:0},
+        {transform:`translateY(${window.innerHeight+120}px) rotate(${rand(90,720)}deg)`,left:endX+'px',opacity:1}
+      ],{duration:dur,easing:'cubic-bezier(.2,.9,.2,1)'});
+
+      setTimeout(()=>el.remove(), dur+100);
+    }
+
+    function burstParticles(centerX, emoji, count=20){
+      for(let i=0;i<count;i++){
+        setTimeout(()=>createParticle(centerX + rand(-30,30), emoji), i*30);
+      }
+    }
+
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('click', e=>{
+        const emoji = card.dataset.emoji;
+        const x = e.clientX || window.innerWidth/2;
+        burstParticles(x, emoji, 25);
+        card.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:400,easing:'ease-out'});
+      });
+    });
+  </script>
+</body>
+</html>
