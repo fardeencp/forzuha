@@ -120,7 +120,6 @@ button{
   line-height:1.5;
 }
 
-/* restored romantic extras */
 .easter{
   margin-top:18px;
   font-family:'Dancing Script',cursive;
@@ -154,7 +153,7 @@ button{
   font-size:22px;
   pointer-events:none;
   z-index:1;
-  animation:floatUp 2.8s ease-out forwards;
+  animation:floatUp linear forwards;
 }
 
 @keyframes floatUp{
@@ -173,7 +172,6 @@ button{
 
 <div class="card">
 
-  <!-- Question -->
   <div id="questionBlock">
     <h1>Dearest Aysha Prettiest Zuha, will you be my Valentine (forever) ? 💖</h1>
     <p>Be honest… but your heart already knows 😌</p>
@@ -184,7 +182,6 @@ button{
     </div>
   </div>
 
-  <!-- After YES -->
   <div class="after-yes" id="afterYes">
     <div class="bouquet">🌷💐</div>
     <div class="line1">I knew you’d say yes 😌💘</div>
@@ -192,57 +189,74 @@ button{
       I wish the gargantua pulls the earth's gravity and makes time run slower , when you're with me. I love you Aysha Zuha
     </div>
 
-    <div class="easter" id="easter">I’d still choose you in every universe 🌌</div>
-    <div class="final-line" id="finalLine">it was always you.</div>
-    <div class="signature">— you know who</div>
+    <div class="easter">I’d still choose you in every universe 🌌</div>
+    <div class="final-line">This was always you.</div>
+    <div class="signature">— always yours</div>
   </div>
 
 </div>
 
 <script>
-const noBtn=document.getElementById("noBtn");
-const yesBtn=document.getElementById("yesBtn");
-const buttons=document.getElementById("buttons");
-const questionBlock=document.getElementById("questionBlock");
-const afterYes=document.getElementById("afterYes");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const buttons = document.getElementById("buttons");
+const questionBlock = document.getElementById("questionBlock");
+const afterYes = document.getElementById("afterYes");
+
+let isFrozen = false;
 
 function moveNoButton(){
-  const c=buttons.getBoundingClientRect();
-  const b=noBtn.getBoundingClientRect();
-  const x=Math.random()*(c.width-b.width);
-  const y=Math.random()*(c.height-b.height);
-  noBtn.style.left=x+"px";
-  noBtn.style.top=y+"px";
+  if (isFrozen) return;
+  const c = buttons.getBoundingClientRect();
+  const b = noBtn.getBoundingClientRect();
+  noBtn.style.left = Math.random() * (c.width - b.width) + "px";
+  noBtn.style.top = Math.random() * (c.height - b.height) + "px";
 }
 
-buttons.addEventListener("touchstart",moveNoButton,{passive:true});
-buttons.addEventListener("touchmove",moveNoButton,{passive:true});
-noBtn.addEventListener("click",e=>{
+buttons.addEventListener("touchstart", moveNoButton, { passive:true });
+buttons.addEventListener("touchmove", moveNoButton, { passive:true });
+noBtn.addEventListener("click", e => {
   e.preventDefault();
   moveNoButton();
 });
 
-function popParticles(){
-  const icons=["💖","💘","🎉","✨","💞"];
-  for(let i=0;i<45;i++){
-    const p=document.createElement("div");
-    p.className="particle";
-    p.textContent=icons[Math.floor(Math.random()*icons.length)];
-    p.style.left=Math.random()*100+"vw";
-    p.style.bottom="-20px";
-    p.style.animationDelay=Math.random()*.6+"s";
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(),3000);
-  }
+function createParticle(){
+  if (isFrozen) return;
+
+  const icons = ["💖","💘","✨","💞"];
+  const p = document.createElement("div");
+  p.className = "particle";
+  p.textContent = icons[Math.floor(Math.random()*icons.length)];
+  p.style.left = Math.random()*100 + "vw";
+  p.style.bottom = "-20px";
+  const duration = Math.random()*1200 + 1800;
+  p.style.animationDuration = duration + "ms";
+  document.body.appendChild(p);
+
+  setTimeout(()=>p.remove(), duration);
 }
 
-yesBtn.addEventListener("click",()=>{
-  questionBlock.style.display="none";
-  afterYes.style.display="block";
-  popParticles();
+function startParticles(){
+  const interval = setInterval(()=>{
+    if (isFrozen) {
+      clearInterval(interval);
+      return;
+    }
+    createParticle();
+  }, 120);
+}
+
+yesBtn.addEventListener("click", ()=>{
+  questionBlock.style.display = "none";
+  afterYes.style.display = "block";
+  startParticles();
+
+  // TIME FREEZE
+  setTimeout(()=>{
+    isFrozen = true;
+  }, 4200);
 });
 </script>
 
 </body>
 </html>
-
