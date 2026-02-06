@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contract Signed 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;font-family:'Poppins',sans-serif;display:flex;justify-content:center;align-items:center;background:#fff0f6;}
+body{overflow:hidden;}
+.contract-card{
+  background:rgba(255,255,255,0.96);
+  padding:38px 30px;
+  border-radius:26px;
+  text-align:center;
+  max-width:360px;
+  width:90%;
+  box-shadow:0 25px 45px rgba(0,0,0,0.12);
+  position:relative;
+}
+.contract-card h1{
+  font-family:'Playfair Display',serif;
+  font-size:22px;
+  color:#1e3a8a;
+  margin-bottom:12px;
+}
+.contract-card p{
+  color:#475569;
+  margin-bottom:20px;
+  font-size:15px;
+}
+.signature-line{
+  border-bottom:2px dashed #1e3a8a;
+  width:80%;
+  margin:20px auto 10px auto;
+  padding:6px;
+  font-weight:600;
+  color:#1e3a8a;
+  text-align:center;
+}
+.hearts,.poppers{
+  position:fixed;inset:0;pointer-events:none;
+}
+.heart,.pop{
+  position:absolute;
+  animation:fall linear forwards;
+}
+.heart{font-size:22px;}
+.pop{width:6px;height:6px;border-radius:50%;background:#1e3a8a;}
+@keyframes fall{
+  to{transform:translateY(120vh) rotate(360deg);opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="contract-card">
+  <h1>💌 Contract Signed 💌</h1>
+  <p>You are Fardeen’s Valentine for the next 60 years 💖</p>
+  <div class="signature-line" contenteditable="true">Sign here…</div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+<div class="poppers" id="poppers"></div>
+
+<script>
+function launchHearts(){
+  for(let i=0;i<36;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.textContent="💙";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=3+Math.random()*3+"s";
+    document.getElementById("hearts").appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  }
+}
+function launchPoppers(){
+  for(let i=0;i<120;i++){
+    const p=document.createElement("div");
+    p.className="pop";
+    p.style.left=Math.random()*100+"vw";
+    p.style.top=Math.random()*20+"vh";
+    p.style.animationDuration=2+Math.random()*2+"s";
+    document.getElementById("poppers").appendChild(p);
+    setTimeout(()=>p.remove(),4000);
+  }
+}
+for(let i=0;i<5;i++){
+  setTimeout(()=>{launchHearts(); launchPoppers();}, i*400);
+}
+</script>
+</body>
+</html>
