@@ -44,7 +44,7 @@
     }
 
     .card.pop {
-      transform: scale(1.03);
+      transform: scale(1.04);
     }
 
     h1 {
@@ -61,21 +61,37 @@
 
     .after-yes {
       display: none;
-      margin-top: 18px;
-      font-size: 15px;
-      color: #ec4899;
+      margin-top: 22px;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .after-yes .line1 {
+      font-size: 16px;
       font-weight: 600;
+      color: #ec4899;
+    }
+
+    .after-yes .line2 {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .buttons {
       position: relative;
-      height: 150px;
+      height: 160px;
       overflow: hidden;
     }
 
     button {
       border: none;
-      padding: 14px 30px;
+      padding: 14px 32px;
       border-radius: 999px;
       font-size: 16px;
       position: absolute;
@@ -86,18 +102,20 @@
       background: var(--yes);
       color: white;
       left: 50%;
+      top: 10px;
       transform: translateX(-50%);
+      z-index: 2;
     }
 
     #yesBtn:active {
       background: var(--yes-hover);
-      transform: translateX(-50%) scale(1.06);
+      transform: translateX(-50%) scale(1.08);
     }
 
     #noBtn {
       background: #e5e7eb;
       color: #374151;
-      top: 80px;
+      top: 95px;
       left: 50%;
       transform: translateX(-50%);
       transition: left 0.25s ease, top 0.25s ease;
@@ -109,13 +127,6 @@
       font-size: 26px;
       opacity: 0;
       z-index: 100;
-      animation: heartPop 0.4s ease-out;
-    }
-
-    @keyframes heartPop {
-      0% { transform: scale(0.6); }
-      60% { transform: scale(1.2); }
-      100% { transform: scale(1); }
     }
   </style>
 </head>
@@ -123,7 +134,7 @@
 <body>
   <div class="card" id="card">
     <h1>Aysha Zuha, will you be my Valentine? 💖</h1>
-    <p>I wish the gargantua pulls the earth's gravity and makes time run slower , when you're with me. I love you Aysha Zuha</p>
+    <p>Be honest… but your heart already knows 😌</p>
 
     <div class="buttons">
       <button id="yesBtn">Yes 💕</button>
@@ -131,7 +142,10 @@
     </div>
 
     <div class="after-yes" id="afterYes">
-      I knew you’d say yes 😌💘
+      <div class="line1">I knew you’d say yes 😌💘</div>
+      <div class="line2">
+        I wish the gargantua pulls the earth's gravity and makes time run slower , when you're with me. I love you Aysha Zuha
+      </div>
     </div>
   </div>
 
@@ -146,17 +160,21 @@
       const c = container.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
 
-      const maxX = c.width - b.width;
-      const maxY = c.height - b.height;
+      const safeRadius = 90; // keep away from YES
+      let x, y, dist;
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+      do {
+        x = Math.random() * (c.width - b.width);
+        y = Math.random() * (c.height - b.height);
+        const yesCenterX = c.width / 2;
+        const yesCenterY = 25;
+        dist = Math.hypot(x - yesCenterX, y - yesCenterY);
+      } while (dist < safeRadius);
 
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
     }
 
-    // iOS-only friendly behavior
     noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
     noBtn.addEventListener("touchmove", moveNoButton, { passive: true });
     noBtn.addEventListener("click", e => {
@@ -176,12 +194,12 @@
       el.style.top = "-30px";
       document.body.appendChild(el);
 
-      const duration = rand(2200, 3600);
+      const duration = rand(2400, 3800);
 
       el.animate([
         { transform: "translateY(0)", opacity: 0 },
         {
-          transform: `translateY(${window.innerHeight + 120}px) rotate(${rand(90,720)}deg)`,
+          transform: `translateY(${window.innerHeight + 120}px) rotate(${rand(120,720)}deg)`,
           opacity: 1
         }
       ], {
@@ -195,12 +213,11 @@
     yesBtn.addEventListener("click", e => {
       const x = e.clientX || window.innerWidth / 2;
 
-      // soft haptic-feel pop
       card.classList.add("pop");
-      setTimeout(() => card.classList.remove("pop"), 200);
+      setTimeout(() => card.classList.remove("pop"), 220);
 
-      for (let i = 0; i < 36; i++) {
-        setTimeout(() => createHeart(x + rand(-120, 120)), i * 40);
+      for (let i = 0; i < 40; i++) {
+        setTimeout(() => createHeart(x + rand(-130, 130)), i * 45);
       }
 
       yesBtn.style.display = "none";
@@ -210,4 +227,3 @@
   </script>
 </body>
 </html>
-
