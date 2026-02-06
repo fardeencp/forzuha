@@ -1,262 +1,222 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>For Aysha Zuha 💖</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Valentine</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg1:#fff1f6;
-  --bg2:#fdf2f8;
-  --text:#111827;
-  --muted:#6b7280;
-  --pink:#ec4899;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-*{box-sizing:border-box}
-
-html,body{
-  height:100%;
-  margin:0;
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
-body{
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  font-family:'Inter',system-ui,-apple-system,sans-serif;
+body {
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("bg.jpg") center/cover no-repeat;
 }
 
-.card{
-  background:rgba(255,255,255,0.92);
-  backdrop-filter:blur(14px);
-  padding:46px 34px;
-  border-radius:28px;
-  box-shadow:0 30px 50px rgba(0,0,0,.08);
-  width:90%;
-  max-width:360px;
-  text-align:center;
-  position:relative;
-  z-index:2;
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-h1{
-  font-family:'Playfair Display',serif;
-  font-size:26px;
-  line-height:1.25;
-  margin:0 0 14px;
-  color:var(--text);
+.card {
+  text-align: center;
+  padding: 24px;
+  color: #fff;
 }
 
-p{
-  font-size:14px;
-  color:var(--muted);
-  margin:0 0 26px;
+.question {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  margin-bottom: 32px;
+  transition: opacity 0.6s ease;
 }
 
-.buttons{
-  position:relative;
-  height:170px;
+.buttons {
+  position: relative;
+  width: 240px;
+  height: 120px;
+  margin: auto;
 }
 
-button{
-  border:none;
-  padding:14px 34px;
-  border-radius:999px;
-  font-size:16px;
-  position:absolute;
-  touch-action:none;
-  -webkit-tap-highlight-color:transparent;
-  font-family:'Inter',sans-serif;
+button {
+  position: absolute;
+  padding: 14px 28px;
+  border-radius: 999px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-#yesBtn{
-  background:var(--pink);
-  color:#fff;
-  left:50%;
-  top:8px;
-  transform:translateX(-50%);
+#yesBtn {
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  color: #111;
+  font-weight: 500;
 }
 
-#yesBtn:active{
-  transform:translateX(-50%) scale(1.06);
+#noBtn {
+  background: rgba(255,255,255,0.15);
+  color: transparent;
+  backdrop-filter: blur(6px);
+  left: 50%;
+  top: 60px;
+  transform: translateX(-50%);
+  pointer-events: auto;
 }
 
-#noBtn{
-  background:#e5e7eb;
-  color:#374151;
-  left:50%;
-  top:95px;
-  transform:translateX(-50%);
-  transition:left .25s ease, top .25s ease;
+.popup {
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgba(255,255,255,0.85);
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  transition: opacity 1.2s ease;
+  pointer-events: none;
 }
 
-.after-yes{
-  display:none;
-  opacity:0;
-  animation:fadeIn 1s ease forwards;
+.popup.show {
+  opacity: 1;
 }
 
-.bouquet{
-  font-size:44px;
-  margin-bottom:10px;
+.hearts, .poppers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.line1{
-  font-size:16px;
-  font-weight:600;
-  color:var(--pink);
+.heart, .pop {
+  position: absolute;
+  animation: fall linear forwards;
 }
 
-.line2{
-  margin-top:14px;
-  font-size:14px;
-  color:var(--muted);
-  line-height:1.5;
+.heart {
+  font-size: 22px;
 }
 
-.easter{
-  margin-top:18px;
-  font-family:'Dancing Script',cursive;
-  font-size:18px;
-  color:#9d174d;
-  opacity:0;
-  animation:fadeIn 1s ease forwards;
-  animation-delay:1.2s;
+.pop {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
 }
 
-.final-line{
-  margin-top:8px;
-  font-weight:500;
-  color:#374151;
-  opacity:0;
-  animation:fadeIn 1s ease forwards;
-  animation-delay:1.8s;
-}
-
-.signature{
-  margin-top:12px;
-  font-size:13px;
-  color:#6b7280;
-  opacity:0;
-  animation:fadeIn 1s ease forwards;
-  animation-delay:2.4s;
-}
-
-.particle{
-  position:fixed;
-  font-size:22px;
-  pointer-events:none;
-  z-index:1;
-  animation:floatUp linear forwards;
-}
-
-@keyframes floatUp{
-  from{transform:translateY(0) scale(.6);opacity:1}
-  to{transform:translateY(-120vh) scale(1.1);opacity:0}
-}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:translateY(0)}
+@keyframes fall {
+  to {
+    transform: translateY(120vh) rotate(360deg);
+    opacity: 0;
+  }
 }
 </style>
 </head>
 
 <body>
-
-<div class="card">
-
-  <div id="questionBlock">
-    <h1>Dearest Aysha Prettiest Zuha, will you be my Valentine (forever) ? 💖</h1>
-    <p>Be honest… but your heart already knows 😌</p>
+<div class="container">
+  <div class="card">
+    <div class="question" id="question">
+      Will you be my Valentine?
+    </div>
 
     <div class="buttons" id="buttons">
-      <button id="yesBtn">Yes 💕</button>
-      <button id="noBtn">No</button>
+      <button id="yesBtn">Yes</button>
+      <button id="noBtn" aria-hidden="true">No</button>
     </div>
   </div>
-
-  <div class="after-yes" id="afterYes">
-    <div class="bouquet">🌷💐</div>
-    <div class="line1">I knew you’d say yes 😌💘</div>
-    <div class="line2">
-      I wish the gargantua pulls the earth's gravity and makes time run slower , when you're with me. I love you Aysha Zuha
-    </div>
-
-    <div class="easter">I’d still choose you in every universe 🌌</div>
-    <div class="final-line">This was always you.</div>
-    <div class="signature">— always yours</div>
-  </div>
-
 </div>
 
+<div class="popup" id="popup">
+  <div>
+    I’d still choose you in every universe 🌌<br><br>
+    <span style="font-size:22px; opacity:0.85;">This was always you.</span><br><br>
+    <span style="font-size:18px; opacity:0.6;">— always yours</span>
+  </div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+<div class="poppers" id="poppers"></div>
+
 <script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const buttons = document.getElementById("buttons");
-const questionBlock = document.getElementById("questionBlock");
-const afterYes = document.getElementById("afterYes");
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const popup = document.getElementById('popup');
+const question = document.getElementById('question');
+const buttons = document.getElementById('buttons');
 
-let isFrozen = false;
+function moveNoButton(x, y) {
+  const maxX = buttons.clientWidth - noBtn.offsetWidth;
+  const maxY = buttons.clientHeight - noBtn.offsetHeight;
 
-function moveNoButton(){
-  if (isFrozen) return;
-  const c = buttons.getBoundingClientRect();
-  const b = noBtn.getBoundingClientRect();
-  noBtn.style.left = Math.random() * (c.width - b.width) + "px";
-  noBtn.style.top = Math.random() * (c.height - b.height) + "px";
+  const randX = Math.random() * maxX;
+  const randY = Math.random() * maxY;
+
+  noBtn.style.left = randX + 'px';
+  noBtn.style.top = randY + 'px';
 }
 
-buttons.addEventListener("touchstart", moveNoButton, { passive:true });
-buttons.addEventListener("touchmove", moveNoButton, { passive:true });
-noBtn.addEventListener("click", e => {
-  e.preventDefault();
-  moveNoButton();
+['touchstart','mousemove'].forEach(evt => {
+  noBtn.addEventListener(evt, e => {
+    moveNoButton();
+  });
 });
 
-function createParticle(){
-  if (isFrozen) return;
+yesBtn.addEventListener('click', () => {
+  question.style.opacity = '0';
+  buttons.style.opacity = '0';
 
-  const icons = ["💖","💘","✨","💞"];
-  const p = document.createElement("div");
-  p.className = "particle";
-  p.textContent = icons[Math.floor(Math.random()*icons.length)];
-  p.style.left = Math.random()*100 + "vw";
-  p.style.bottom = "-20px";
-  const duration = Math.random()*1200 + 1800;
-  p.style.animationDuration = duration + "ms";
-  document.body.appendChild(p);
-
-  setTimeout(()=>p.remove(), duration);
-}
-
-function startParticles(){
-  const interval = setInterval(()=>{
-    if (isFrozen) {
-      clearInterval(interval);
-      return;
-    }
-    createParticle();
-  }, 120);
-}
-
-yesBtn.addEventListener("click", ()=>{
-  questionBlock.style.display = "none";
-  afterYes.style.display = "block";
-  startParticles();
-
-  // TIME FREEZE
-  setTimeout(()=>{
-    isFrozen = true;
-  }, 4200);
+  setTimeout(() => {
+    popup.classList.add('show');
+    launchHearts();
+    launchPoppers();
+  }, 700);
 });
+
+function launchHearts() {
+  for (let i = 0; i < 40; i++) {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.innerText = '💖';
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.top = '-10vh';
+    h.style.animationDuration = (3 + Math.random() * 3) + 's';
+    document.getElementById('hearts').appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }
+}
+
+function launchPoppers() {
+  for (let i = 0; i < 120; i++) {
+    const p = document.createElement('div');
+    p.className = 'pop';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.top = Math.random() * 20 + 'vh';
+    p.style.animationDuration = (2 + Math.random() * 2) + 's';
+    document.getElementById('poppers').appendChild(p);
+    setTimeout(() => p.remove(), 4000);
+  }
+}
 </script>
-
 </body>
 </html>
