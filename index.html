@@ -5,161 +5,171 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>For Aysha Zuha 💖</title>
 
-<!-- Google Fonts -->
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg1: #fff1f6;
-  --bg2: #fdf2f8;
-  --text: #111827;
-  --muted: #6b7280;
-  --pink: #ec4899;
+  --bg1:#fff1f6;
+  --bg2:#fdf2f8;
+  --text:#111827;
+  --muted:#6b7280;
+  --pink:#ec4899;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing:border-box; }
 
-html, body {
-  height: 100%;
-  margin: 0;
+html,body {
+  height:100%;
+  margin:0;
 }
 
 body {
-  background: linear-gradient(180deg, var(--bg1), var(--bg2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
 }
 
 .card {
-  background: rgba(255,255,255,0.92);
-  padding: 46px 34px;
-  border-radius: 28px;
-  box-shadow: 0 30px 50px rgba(0,0,0,0.08);
-  text-align: center;
-  width: 90%;
-  max-width: 360px;
-  position: relative;
-  z-index: 2;
+  background:rgba(255,255,255,0.94);
+  padding:48px 34px;
+  border-radius:28px;
+  box-shadow:0 30px 50px rgba(0,0,0,0.08);
+  width:90%;
+  max-width:360px;
+  text-align:center;
+  position:relative;
+  z-index:2;
 }
 
 h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 600;
-  line-height: 1.25;
-  margin-bottom: 14px;
-  color: var(--text);
-  letter-spacing: 0.2px;
+  font-family:'Playfair Display',serif;
+  font-size:26px;
+  line-height:1.25;
+  margin:0 0 14px;
+  color:var(--text);
 }
 
 p {
-  font-size: 14px;
-  color: var(--muted);
-  letter-spacing: 0.2px;
+  font-size:14px;
+  color:var(--muted);
+  margin:0;
 }
 
 .buttons {
-  position: relative;
-  height: 160px;
-  margin-top: 26px;
+  position:relative;
+  height:160px;
+  margin-top:28px;
 }
 
 button {
-  border: none;
-  padding: 14px 34px;
-  border-radius: 999px;
-  font-size: 16px;
-  font-family: 'Inter', sans-serif;
-  position: absolute;
-  -webkit-tap-highlight-color: transparent;
+  border:none;
+  padding:14px 34px;
+  border-radius:999px;
+  font-size:16px;
+  font-family:'Inter',sans-serif;
+  position:absolute;
+  -webkit-tap-highlight-color:transparent;
 }
 
 #yesBtn {
-  background: var(--pink);
-  color: white;
-  left: 50%;
-  top: 10px;
-  transform: translateX(-50%);
+  background:var(--pink);
+  color:white;
+  left:50%;
+  top:10px;
+  transform:translateX(-50%);
 }
 
 #noBtn {
-  background: #e5e7eb;
-  color: #374151;
-  left: 50%;
-  top: 95px;
-  transform: translateX(-50%);
+  background:#e5e7eb;
+  color:#374151;
+  left:50%;
+  top:95px;
+  transform:translateX(-50%);
 }
 
 .after-yes {
-  display: none;
-  margin-top: 8px;
-  animation: fadeUp 0.9s ease forwards;
+  display:none;
+}
+
+.stack {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+  animation:fadeUp 0.8s ease forwards;
 }
 
 .bouquet {
-  font-size: 46px;
-  margin-bottom: 12px;
-  cursor: pointer;
+  font-size:46px;
+  cursor:pointer;
 }
 
 .line1 {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--pink);
-  margin-bottom: 6px;
+  font-size:16px;
+  font-weight:600;
+  color:var(--pink);
 }
 
 .line2 {
-  margin-top: 10px;
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.6;
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.6;
+  max-width:280px;
 }
 
 .easter {
-  display: none;
-  margin-top: 12px;
-  font-size: 13px;
-  color: #9d174d;
-  font-style: italic;
+  display:none;
+  font-size:13px;
+  color:#9d174d;
+  font-style:italic;
+  margin-top:6px;
 }
 
 .final-line {
-  display: none;
-  margin-top: 18px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #111;
+  opacity:0;
+  font-size:14px;
+  font-weight:500;
+  color:#9d174d;
+  letter-spacing:0.6px;
+  margin-top:14px;
+  animation:softFade 1.8s ease forwards;
 }
 
 .signature {
-  margin-top: 26px;
-  font-family: 'Dancing Script', cursive;
-  font-size: 18px;
-  color: #9ca3af;
+  margin-top:22px;
+  font-family:'Dancing Script',cursive;
+  font-size:18px;
+  color:#9ca3af;
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity:0; transform:translateY(14px); }
+  to { opacity:1; transform:translateY(0); }
 }
 
-/* Confetti */
+@keyframes softFade {
+  from { opacity:0; transform:translateY(6px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* Firecrackers */
 .confetti {
-  position: fixed;
-  width: 8px;
-  height: 14px;
-  top: -20px;
-  animation: fall 3s linear forwards;
+  position:fixed;
+  width:8px;
+  height:14px;
+  top:-20px;
+  animation:fall linear forwards;
+  z-index:1;
 }
 
 @keyframes fall {
   to {
-    transform: translateY(120vh) rotate(720deg);
-    opacity: 0;
+    transform:translateY(120vh) rotate(720deg);
+    opacity:0;
   }
 }
 </style>
@@ -168,6 +178,8 @@ button {
 <body>
 
 <div class="card">
+
+  <!-- QUESTION -->
   <div id="question">
     <h1>Dearest Aysha Prettiest Zuha,<br>will you be my Valentine (forever)? 💖</h1>
     <p>Be honest… your heart already knows 😌</p>
@@ -178,25 +190,29 @@ button {
     </div>
   </div>
 
+  <!-- AFTER YES -->
   <div class="after-yes" id="afterYes">
-    <div class="bouquet" id="bouquet">🌷💐</div>
+    <div class="stack">
+      <div class="bouquet" id="bouquet">🌷💐</div>
 
-    <div class="line1">I knew you’d say yes 😌💘</div>
+      <div class="line1">I knew you’d say yes 😌💘</div>
 
-    <div class="line2">
-      I wish the gargantua pulls the earth's gravity and makes time run slower, when you're with me. I love you Aysha Zuha
+      <div class="line2">
+        I wish the gargantua pulls the earth's gravity and makes time run slower, when you're with me. I love you Aysha Zuha
+      </div>
+
+      <div class="easter" id="easter">
+        I’d still choose you in every universe 🌌
+      </div>
+
+      <div class="final-line" id="finalLine">
+        This was always you.
+      </div>
+
+      <div class="signature">— always yours</div>
     </div>
-
-    <div class="easter" id="easter">
-      I’d still choose you in every universe 🌌
-    </div>
-
-    <div class="final-line" id="finalLine">
-      This was always you.
-    </div>
-
-    <div class="signature">— always yours</div>
   </div>
+
 </div>
 
 <script>
@@ -208,15 +224,13 @@ const bouquet = document.getElementById("bouquet");
 const easter = document.getElementById("easter");
 const finalLine = document.getElementById("finalLine");
 
-// NO button escape
+// NO button escape (no visual click)
 noBtn.addEventListener("touchstart", moveNo);
 noBtn.addEventListener("click", moveNo);
 
 function moveNo() {
-  const x = Math.random() * 200;
-  const y = Math.random() * 120;
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+  noBtn.style.left = Math.random() * 200 + "px";
+  noBtn.style.top = Math.random() * 120 + "px";
 }
 
 // YES click
@@ -226,8 +240,8 @@ yesBtn.addEventListener("click", () => {
   fireworks();
 
   setTimeout(() => {
-    finalLine.style.display = "block";
-  }, 6000);
+    finalLine.style.opacity = "1";
+  }, 4500);
 });
 
 // Easter egg
@@ -235,20 +249,13 @@ bouquet.addEventListener("click", () => {
   easter.style.display = "block";
 });
 
-// Night mood
-if (new Date().getHours() >= 20) {
-  document.body.style.background =
-    "linear-gradient(180deg, #1f2933, #111827)";
-}
-
-// Fireworks
+// Firecrackers
 function fireworks() {
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 140; i++) {
     const c = document.createElement("div");
     c.className = "confetti";
     c.style.left = Math.random() * window.innerWidth + "px";
-    c.style.background =
-      `hsl(${Math.random() * 360}, 80%, 60%)`;
+    c.style.background = `hsl(${Math.random()*360},80%,60%)`;
     c.style.animationDuration = 2 + Math.random() * 2 + "s";
     document.body.appendChild(c);
     setTimeout(() => c.remove(), 4000);
