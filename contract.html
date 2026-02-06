@@ -32,7 +32,7 @@ p{margin-bottom:20px;color:var(--text);font-size:14px;line-height:1.5;}
 canvas{
   border:1px solid var(--border);
   border-radius:10px;
-  touch-action: none;
+  touch-action:none;
   width:100%;
   height:200px;
   display:block;
@@ -72,47 +72,54 @@ const canvas = document.getElementById("signCanvas");
 const ctx = canvas.getContext("2d");
 let drawing=false;
 
+// Resize canvas to match displayed size
 function resizeCanvas(){
-  canvas.width=canvas.offsetWidth;
-  canvas.height=canvas.offsetHeight;
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Draw logic
-canvas.addEventListener("mousedown",()=>drawing=true);
-canvas.addEventListener("mouseup",()=>drawing=false);
-canvas.addEventListener("mouseleave",()=>drawing=false);
-canvas.addEventListener("mousemove",(e)=>{
-  if(!drawing) return;
-  const rect = canvas.getBoundingClientRect();
-  ctx.lineWidth=2;
-  ctx.lineCap="round";
-  ctx.strokeStyle="#1e3a8a";
-  ctx.beginPath();
-  ctx.moveTo(e.offsetX,e.offsetY);
-  ctx.lineTo(e.offsetX,e.offsetY);
-  ctx.stroke();
-});
-
-canvas.addEventListener("touchstart",(e)=>{
+// Draw helpers
+function startDraw(x,y){
   drawing=true;
-  e.preventDefault();
-});
-canvas.addEventListener("touchend",(e)=>{drawing=false;e.preventDefault();});
-canvas.addEventListener("touchmove",(e)=>{
+  ctx.beginPath();
+  ctx.moveTo(x,y);
+}
+function draw(x,y){
   if(!drawing) return;
-  const touch = e.touches[0];
-  const rect = canvas.getBoundingClientRect();
+  ctx.lineTo(x,y);
+  ctx.strokeStyle="#1e3a8a";
   ctx.lineWidth=2;
   ctx.lineCap="round";
-  ctx.strokeStyle="#1e3a8a";
-  ctx.beginPath();
-  ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
-  ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
   ctx.stroke();
-  e.preventDefault();
+}
+function endDraw(){drawing=false;}
+
+// Mouse events
+canvas.addEventListener("mousedown",(e)=>{
+  startDraw(e.offsetX,e.offsetY);
 });
+canvas.addEventListener("mousemove",(e)=>{
+  draw(e.offsetX,e.offsetY);
+});
+canvas.addEventListener("mouseup",endDraw);
+canvas.addEventListener("mouseleave",endDraw);
+
+// Touch events for iOS/Android
+canvas.addEventListener("touchstart",(e)=>{
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  startDraw(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+canvas.addEventListener("touchmove",(e)=>{
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  draw(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+canvas.addEventListener("touchend",(e)=>{e.preventDefault(); endDraw();});
 
 // Submit
 document.getElementById("submitBtn").addEventListener("click",()=>{
