@@ -3,96 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contract Signing 💌</title>
+<title>Fardeen's Valentine Contract</title>
 <style>
-body {
-  margin:0;
-  font-family: 'Poppins', sans-serif;
-  background:#fff0f6;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:hidden;
-  flex-direction:column;
+:root{
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#1e3a8a;
+  font-family:-apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif;
 }
-.contract-card {
-  background: rgba(255,255,255,0.96);
-  padding: 30px;
-  border-radius: 26px;
-  width: 90%;
-  max-width: 400px;
-  text-align: center;
-  box-shadow:0 25px 45px rgba(0,0,0,0.12);
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;}
+body{
+  background: url('bg.jpg') center/cover no-repeat;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-h1 {
-  font-family:'Playfair Display', serif;
-  font-size:22px;
-  color:#1e3a8a;
-  margin-bottom:12px;
+.card{
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(14px);
+  padding:40px 30px;
+  border-radius:20px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+  box-shadow:0 20px 40px rgba(0,0,0,0.1);
 }
-p {
-  color:#475569;
-  font-size:15px;
-  margin-bottom:20px;
-}
-canvas {
-  border:2px dashed #1e3a8a;
+h1{margin-bottom:12px;font-size:22px;color:var(--border);}
+p{margin-bottom:20px;color:var(--text);font-size:14px;line-height:1.5;}
+canvas{
+  border:1px solid var(--border);
   border-radius:10px;
   touch-action: none;
   width:100%;
   height:200px;
-  margin-bottom:10px;
+  display:block;
+  margin-bottom:16px;
 }
-button {
-  padding:10px 20px;
-  border-radius:999px;
-  border:none;
-  background:#1e3a8a;
+button{
+  background: var(--border);
   color:white;
-  font-weight:600;
-  font-size:14px;
+  border:none;
+  padding:12px 24px;
+  border-radius:999px;
+  font-size:16px;
   cursor:pointer;
 }
-.terms {
-  font-size:9px;
-  color:#94a3b8;
-  margin-top:10px;
-}
+button:active{transform:scale(0.96);}
+.terms{font-size:10px;color:#475569;margin-top:8px;}
+.thankyou{display:none;color:var(--border);font-weight:600;margin-top:12px;}
 </style>
 </head>
 <body>
 
-<div class="contract-card">
-  <h1>💌 Contract Signing 💌</h1>
-  <p>You are Fardeen’s Valentine for the next 60 years 💖</p>
-  
-  <canvas id="sigCanvas"></canvas>
-  <button id="clearBtn">Clear</button>
-  
-  <div class="terms">*Contract renewal after 60 years</div>
+<div class="card">
+  <h1>Valentine Contract 💌</h1>
+  <p>
+    By signing below, you agree to be <strong>Fardeen's Valentine</strong> for the next <strong>60 years</strong>.
+  </p>
+  <canvas id="signCanvas"></canvas>
+  <button id="submitBtn">Sign & Submit 💖</button>
+  <div class="thankyou" id="thankYou">Thank you! Contract signed successfully 😘</div>
+  <div class="terms">
+    Terms & Conditions: Contract renewal after 60 years.
+  </div>
 </div>
 
 <script>
-const canvas = document.getElementById('sigCanvas');
-const ctx = canvas.getContext('2d');
-let drawing = false;
+const canvas = document.getElementById("signCanvas");
+const ctx = canvas.getContext("2d");
+let drawing=false;
 
-function resizeCanvas() {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
+function resizeCanvas(){
+  canvas.width=canvas.offsetWidth;
+  canvas.height=canvas.offsetHeight;
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-// Drawing logic
-canvas.addEventListener('pointerdown', e => { drawing=true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
-canvas.addEventListener('pointermove', e => { if(!drawing) return; ctx.lineTo(e.offsetX,e.offsetY); ctx.strokeStyle='#1e3a8a'; ctx.lineWidth=2; ctx.stroke(); });
-canvas.addEventListener('pointerup', ()=>drawing=false);
-canvas.addEventListener('pointerleave', ()=>drawing=false);
+// Draw logic
+canvas.addEventListener("mousedown",()=>drawing=true);
+canvas.addEventListener("mouseup",()=>drawing=false);
+canvas.addEventListener("mouseleave",()=>drawing=false);
+canvas.addEventListener("mousemove",(e)=>{
+  if(!drawing) return;
+  const rect = canvas.getBoundingClientRect();
+  ctx.lineWidth=2;
+  ctx.lineCap="round";
+  ctx.strokeStyle="#1e3a8a";
+  ctx.beginPath();
+  ctx.moveTo(e.offsetX,e.offsetY);
+  ctx.lineTo(e.offsetX,e.offsetY);
+  ctx.stroke();
+});
 
-// Clear button
-document.getElementById('clearBtn').addEventListener('click',()=>ctx.clearRect(0,0,canvas.width,canvas.height));
+canvas.addEventListener("touchstart",(e)=>{
+  drawing=true;
+  e.preventDefault();
+});
+canvas.addEventListener("touchend",(e)=>{drawing=false;e.preventDefault();});
+canvas.addEventListener("touchmove",(e)=>{
+  if(!drawing) return;
+  const touch = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
+  ctx.lineWidth=2;
+  ctx.lineCap="round";
+  ctx.strokeStyle="#1e3a8a";
+  ctx.beginPath();
+  ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+  ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+  ctx.stroke();
+  e.preventDefault();
+});
+
+// Submit
+document.getElementById("submitBtn").addEventListener("click",()=>{
+  document.getElementById("thankYou").style.display="block";
+});
 </script>
 
 </body>
