@@ -3,93 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contract Signed 💌</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<title>Contract Signing 💌</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;height:100%;font-family:'Poppins',sans-serif;display:flex;justify-content:center;align-items:center;background:#fff0f6;}
-body{overflow:hidden;}
-.contract-card{
-  background:rgba(255,255,255,0.96);
-  padding:38px 30px;
-  border-radius:26px;
-  text-align:center;
-  max-width:360px;
-  width:90%;
-  box-shadow:0 25px 45px rgba(0,0,0,0.12);
-  position:relative;
+body {
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  background:#fff0f6;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
+  flex-direction:column;
 }
-.contract-card h1{
-  font-family:'Playfair Display',serif;
+.contract-card {
+  background: rgba(255,255,255,0.96);
+  padding: 30px;
+  border-radius: 26px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow:0 25px 45px rgba(0,0,0,0.12);
+}
+h1 {
+  font-family:'Playfair Display', serif;
   font-size:22px;
   color:#1e3a8a;
   margin-bottom:12px;
 }
-.contract-card p{
+p {
   color:#475569;
-  margin-bottom:20px;
   font-size:15px;
+  margin-bottom:20px;
 }
-.signature-line{
-  border-bottom:2px dashed #1e3a8a;
-  width:80%;
-  margin:20px auto 10px auto;
-  padding:6px;
+canvas {
+  border:2px dashed #1e3a8a;
+  border-radius:10px;
+  touch-action: none;
+  width:100%;
+  height:200px;
+  margin-bottom:10px;
+}
+button {
+  padding:10px 20px;
+  border-radius:999px;
+  border:none;
+  background:#1e3a8a;
+  color:white;
   font-weight:600;
-  color:#1e3a8a;
-  text-align:center;
+  font-size:14px;
+  cursor:pointer;
 }
-.hearts,.poppers{
-  position:fixed;inset:0;pointer-events:none;
-}
-.heart,.pop{
-  position:absolute;
-  animation:fall linear forwards;
-}
-.heart{font-size:22px;}
-.pop{width:6px;height:6px;border-radius:50%;background:#1e3a8a;}
-@keyframes fall{
-  to{transform:translateY(120vh) rotate(360deg);opacity:0;}
+.terms {
+  font-size:9px;
+  color:#94a3b8;
+  margin-top:10px;
 }
 </style>
 </head>
 <body>
 
 <div class="contract-card">
-  <h1>💌 Contract Signed 💌</h1>
+  <h1>💌 Contract Signing 💌</h1>
   <p>You are Fardeen’s Valentine for the next 60 years 💖</p>
-  <div class="signature-line" contenteditable="true">Sign here…</div>
+  
+  <canvas id="sigCanvas"></canvas>
+  <button id="clearBtn">Clear</button>
+  
+  <div class="terms">*Contract renewal after 60 years</div>
 </div>
 
-<div class="hearts" id="hearts"></div>
-<div class="poppers" id="poppers"></div>
-
 <script>
-function launchHearts(){
-  for(let i=0;i<36;i++){
-    const h=document.createElement("div");
-    h.className="heart";
-    h.textContent="💙";
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=3+Math.random()*3+"s";
-    document.getElementById("hearts").appendChild(h);
-    setTimeout(()=>h.remove(),6000);
-  }
+const canvas = document.getElementById('sigCanvas');
+const ctx = canvas.getContext('2d');
+let drawing = false;
+
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
 }
-function launchPoppers(){
-  for(let i=0;i<120;i++){
-    const p=document.createElement("div");
-    p.className="pop";
-    p.style.left=Math.random()*100+"vw";
-    p.style.top=Math.random()*20+"vh";
-    p.style.animationDuration=2+Math.random()*2+"s";
-    document.getElementById("poppers").appendChild(p);
-    setTimeout(()=>p.remove(),4000);
-  }
-}
-for(let i=0;i<5;i++){
-  setTimeout(()=>{launchHearts(); launchPoppers();}, i*400);
-}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// Drawing logic
+canvas.addEventListener('pointerdown', e => { drawing=true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); });
+canvas.addEventListener('pointermove', e => { if(!drawing) return; ctx.lineTo(e.offsetX,e.offsetY); ctx.strokeStyle='#1e3a8a'; ctx.lineWidth=2; ctx.stroke(); });
+canvas.addEventListener('pointerup', ()=>drawing=false);
+canvas.addEventListener('pointerleave', ()=>drawing=false);
+
+// Clear button
+document.getElementById('clearBtn').addEventListener('click',()=>ctx.clearRect(0,0,canvas.width,canvas.height));
 </script>
+
 </body>
 </html>
