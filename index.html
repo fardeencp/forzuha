@@ -3,153 +3,157 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Specially made for Aysha Zuha</title>
+  <title>Will you be my Valentine?</title>
+
   <style>
-    :root{
-      --bg-1:#FFF6F9;
-      --bg-2:#F0FFF4;
-      --muted:#7B8794;
-      --card:#ffffff;
-      --shadow: 0 8px 30px rgba(34,39,50,0.08);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    :root {
+      --bg1: #fff1f6;
+      --bg2: #fdf2f8;
+      --text: #111827;
+      --muted: #6b7280;
+      --yes: #ec4899;
+      --yes-hover: #db2777;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0}
-    body{
-      background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
-      color:#111827;
-      padding:40px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:center;
-    }
-    .container{
-      width:100%;
-      max-width:1100px;
-      background:rgba(255,255,255,0.6);
-      border-radius:18px;
-      padding:28px;
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(8px);
-    }
-    header{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px;}
-    .logo{font-size:32px}
-    h1{margin:0;font-size:17px;line-height:1.2;color:#0F172A}
-    p.lead{margin:0;color:var(--muted)}
 
-    main{display:grid;grid-template-columns:1fr 360px;gap:22px}
-    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
-    .card{
-      background:var(--card);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;align-items:flex-start;box-shadow:0 6px 18px rgba(16,24,40,0.04);cursor:pointer;transition:transform 0.25s ease;
+    * { box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      margin: 0;
     }
-    .card:hover{transform:translateY(-6px)}
-    .emoji{font-size:36px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.7)}
-    .name{font-weight:700}
-    .desc{color:var(--muted);font-size:13px}
 
-    footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+    body {
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
-    .particle{position:fixed;pointer-events:none;z-index:100;font-size:28px;opacity:0;transform:translateY(0) rotate(0deg);}
+    .card {
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+      padding: 40px 32px;
+      border-radius: 22px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      color: var(--text);
+    }
+
+    p {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 26px;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+      position: absolute;
+      transition: transform 0.2s ease;
+    }
+
+    #yesBtn {
+      background: var(--yes);
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #yesBtn:hover {
+      background: var(--yes-hover);
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    #noBtn {
+      background: #e5e7eb;
+      color: #374151;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 24px;
+      opacity: 0;
+    }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">ðŸŒ¸</div>
-      <div>
-        <h1>Specially made for Aysha Zuha</h1>
-        <p class="lead">Click any fruit or flower to shower the screen with its magic!</p>
-      </div>
-    </header>
+  <div class="card">
+    <h1>Will you be my Valentine? 💖</h1>
+    <p>I promise lots of smiles and sweet moments.</p>
 
-    <main>
-      <section>
-        <div class="gallery">
-          <article class="card" data-emoji="ðŸ‡">
-            <div class="emoji">ðŸ‡</div>
-            <div class="name">Green Grapes</div>
-            <div class="desc">Sweet, small and perfect for sharing with friends.</div>
-          </article>
-
-          <article class="card" data-emoji="ðŸ“">
-            <div class="emoji">ðŸ“</div>
-            <div class="name">Strawberries</div>
-            <div class="desc">Bright red, heart-shaped and full of love.</div>
-          </article>
-
-          <article class="card" data-emoji="ðŸ‰">
-            <div class="emoji">ðŸ‰</div>
-            <div class="name">Watermelon</div>
-            <div class="desc">Juicy slices for sunny afternoons.</div>
-          </article>
-
-          <article class="card" data-emoji="ðŸŒ·">
-            <div class="emoji">ðŸŒ·</div>
-            <div class="name">Tulips</div>
-            <div class="desc">Elegant stems that brighten any room.</div>
-          </article>
-
-          <article class="card" data-emoji="ðŸŒº">
-            <div class="emoji">ðŸŒº</div>
-            <div class="name">Peonies</div>
-            <div class="desc">Large, soft blooms for grand gestures.</div>
-          </article>
-
-          <article class="card" data-emoji="ðŸ’">
-            <div class="emoji">ðŸ’</div>
-            <div class="name">Bouquet</div>
-            <div class="desc">A little mix of everything â€” made with care.</div>
-          </article>
-        </div>
-      </section>
-
-      <aside>
-        <h3>Tip:</h3>
-        <p>Click a card to shower the page with that fruit or flower!</p>
-      </aside>
-    </main>
-
-    <footer>
-      <div>Made with ðŸ’š and a little code.</div>
-      <div>Â© Sweet Garden</div>
-    </footer>
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No</button>
+    </div>
   </div>
 
   <script>
-    function rand(min,max){return Math.random()*(max-min)+min}
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
 
-    function createParticle(x, emoji){
-      const el = document.createElement('div');
-      el.className = 'particle';
-      el.textContent = emoji;
-      el.style.left = x + 'px';
-      el.style.top = '-40px';
-      el.style.opacity = 0;
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createHeart(x) {
+      const el = document.createElement("div");
+      el.className = "particle";
+      el.textContent = "💖";
+      el.style.left = x + "px";
+      el.style.top = "-30px";
       document.body.appendChild(el);
 
-      const dur = rand(2200,3800);
-      const endX = x + rand(-120,120);
+      const duration = rand(2000, 3500);
+
       el.animate([
-        {transform:`translateY(0) rotate(0deg)`,opacity:0},
-        {transform:`translateY(${window.innerHeight+120}px) rotate(${rand(90,720)}deg)`,left:endX+'px',opacity:1}
-      ],{duration:dur,easing:'cubic-bezier(.2,.9,.2,1)'});
-
-      setTimeout(()=>el.remove(), dur+100);
-    }
-
-    function burstParticles(centerX, emoji, count=20){
-      for(let i=0;i<count;i++){
-        setTimeout(()=>createParticle(centerX + rand(-30,30), emoji), i*30);
-      }
-    }
-
-    document.querySelectorAll('.card').forEach(card=>{
-      card.addEventListener('click', e=>{
-        const emoji = card.dataset.emoji;
-        const x = e.clientX || window.innerWidth/2;
-        burstParticles(x, emoji, 25);
-        card.animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:400,easing:'ease-out'});
+        { transform: "translateY(0)", opacity: 0 },
+        { transform: `translateY(${window.innerHeight + 100}px) rotate(${rand(90,720)}deg)`, opacity: 1 }
+      ], {
+        duration,
+        easing: "ease-out"
       });
+
+      setTimeout(() => el.remove(), duration);
+    }
+
+    yesBtn.addEventListener("click", (e) => {
+      const x = e.clientX || window.innerWidth / 2;
+      for (let i = 0; i < 30; i++) {
+        setTimeout(() => createHeart(x + rand(-100, 100)), i * 40);
+      }
+      yesBtn.textContent = "Yay! 💘";
     });
   </script>
 </body>
