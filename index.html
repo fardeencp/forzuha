@@ -1,21 +1,13 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>For Aysha Zuha 💖</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Just For You 💗</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg1:#fff1f6;
-  --bg2:#fdf2f8;
-  --text:#111827;
-  --muted:#6b7280;
-  --pink:#ec4899;
-}
-
 *{box-sizing:border-box}
 
 html,body{
@@ -24,63 +16,200 @@ html,body{
 }
 
 body{
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  background:linear-gradient(180deg,#fff1f6,#fde7f3);
   display:flex;
   align-items:center;
   justify-content:center;
+  font-family:'Inter',sans-serif;
   overflow:hidden;
-  font-family:'Inter',system-ui,-apple-system,sans-serif;
 }
 
 .card{
-  background:rgba(255,255,255,0.94);
-  padding:48px 34px;
-  border-radius:28px;
-  box-shadow:0 30px 50px rgba(0,0,0,0.08);
+  background:rgba(255,255,255,0.95);
   width:90%;
   max-width:360px;
+  padding:44px 28px;
+  border-radius:26px;
   text-align:center;
+  box-shadow:0 30px 60px rgba(0,0,0,.08);
   position:relative;
-  z-index:2;
 }
 
 h1{
   font-family:'Playfair Display',serif;
   font-size:26px;
-  line-height:1.25;
   margin-bottom:14px;
+  color:#111;
 }
 
 p{
   font-size:14px;
-  color:var(--muted);
+  color:#6b7280;
 }
 
 .buttons{
   position:relative;
-  height:170px;
-  margin-top:26px;
+  height:180px;
+  margin-top:28px;
 }
 
 button{
+  position:absolute;
   border:none;
-  padding:14px 34px;
+  padding:14px 36px;
   border-radius:999px;
   font-size:16px;
-  position:absolute;
   font-family:'Inter',sans-serif;
-  -webkit-tap-highlight-color:transparent;
   transition:left .25s ease, top .25s ease;
+  -webkit-tap-highlight-color:transparent;
 }
 
-#yesBtn{
-  background:var(--pink);
+#yes{
+  background:#ec4899;
   color:white;
   left:50%;
   top:10px;
   transform:translateX(-50%);
-  z-index:2;
 }
 
-#noBtn{
-  background:#e5e7eb
+#no{
+  background:#e5e7eb;
+  color:#111;
+  left:50%;
+  top:90px;
+  transform:translateX(-50%);
+  pointer-events:auto;
+}
+
+/* disable all visual click feedback on NO */
+#no:active,
+#no:focus{
+  outline:none;
+  background:#e5e7eb;
+}
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.96);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .6s ease;
+  z-index:10;
+}
+
+.popup.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.popup h2{
+  font-family:'Dancing Script',cursive;
+  font-size:30px;
+  color:#ec4899;
+  margin-top:18px;
+  opacity:0;
+  animation:fadeIn .8s ease forwards .4s;
+}
+
+.tulips{
+  width:160px;
+  opacity:0;
+  animation:fadeIn .8s ease forwards .2s;
+}
+
+@keyframes fadeIn{
+  to{opacity:1}
+}
+
+.heart,.pop{
+  position:fixed;
+  pointer-events:none;
+  animation:fly 2.2s linear forwards;
+}
+
+@keyframes fly{
+  from{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+  to{
+    transform:translateY(-600px) scale(1.4);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <h1>Aysha Zuha,<br>will you be my Valentine? 💖</h1>
+  <p>I was always hoping it would be you.</p>
+
+  <div class="buttons" id="zone">
+    <button id="yes">Yes 💕</button>
+    <button id="no">No</button>
+  </div>
+</div>
+
+<div class="popup" id="popup">
+  <img class="tulips" src="https://pngimg.com/uploads/tulip/tulip_PNG132.png" alt="Tulips">
+  <h2>It was always you 🌷</h2>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const zone = document.getElementById("zone");
+const yesBtn = document.getElementById("yes");
+const popup = document.getElementById("popup");
+const card = document.getElementById("card");
+
+// FLOATING NO BUTTON (iOS safe)
+zone.addEventListener("touchmove", e => {
+  const touch = e.touches[0];
+  const btn = noBtn.getBoundingClientRect();
+
+  const dx = Math.abs(touch.clientX - (btn.left + btn.width/2));
+  const dy = Math.abs(touch.clientY - (btn.top + btn.height/2));
+
+  if(dx < 80 && dy < 60){
+    const maxX = zone.clientWidth - btn.width;
+    const maxY = zone.clientHeight - btn.height;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top  = y + "px";
+  }
+},{passive:true});
+
+// YES CLICK
+yesBtn.addEventListener("click", () => {
+  card.style.display = "none";
+  popup.classList.add("show");
+  burst();
+});
+
+// HEARTS + POPPERS
+function burst(){
+  for(let i=0;i<40;i++){
+    const el = document.createElement("div");
+    el.className = Math.random() > .5 ? "heart" : "pop";
+    el.textContent = el.className === "heart" ? "💖" : "🎉";
+    el.style.left = Math.random()*100 + "vw";
+    el.style.bottom = "-20px";
+    el.style.fontSize = 18 + Math.random()*20 + "px";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),2200);
+  }
+}
+</script>
+
+</body>
+</html>
