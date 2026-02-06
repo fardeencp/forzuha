@@ -178,11 +178,11 @@ button{
       Dearest Aysha Prettiest Zuha,<br>
       will you be my Valentine (forever)? 🤍
     </div>
-    <div class="sub">Think about it and only say yes 😌</div>
+    <div class="sub">Think about it and say only yes 😌</div>
 
     <div class="buttons" id="buttons">
       <button id="yesBtn">Yes 💙</button>
-      <button id="noBtn">No</button>
+      <button id="noBtn">No 💔</button>
     </div>
   </div>
 
@@ -195,7 +195,7 @@ button{
     </div>
 
     <div class="easter" id="easter">
-      I’d still choose you in every universe 🌌
+      I’d choose you in every universe 🌌
     </div>
 
     <div class="final-line" id="finalLine">
@@ -203,7 +203,7 @@ button{
     </div>
 
     <div class="signature">
-      — you know who 
+      — you know who
     </div>
 
     <div class="time-line">
@@ -224,12 +224,27 @@ const buttons=document.getElementById("buttons");
 const popup=document.getElementById("popup");
 const questionBlock=document.getElementById("questionBlock");
 
-/* NO button escapes */
+/* NO button escapes with SAFE RADIUS from YES */
 function moveNo(){
-  const maxX=buttons.clientWidth-noBtn.offsetWidth;
-  const maxY=buttons.clientHeight-noBtn.offsetHeight;
-  noBtn.style.left=Math.random()*maxX+"px";
-  noBtn.style.top=Math.random()*maxY+"px";
+  const btnRect = yesBtn.getBoundingClientRect();
+  const safeRadius = 100; // px distance to keep away from YES button
+
+  const maxX = buttons.clientWidth - noBtn.offsetWidth;
+  const maxY = buttons.clientHeight - noBtn.offsetHeight;
+
+  let x, y, dist;
+  do{
+    x = Math.random() * maxX;
+    y = Math.random() * maxY;
+
+    // distance from YES center
+    const dx = (x + noBtn.offsetWidth/2) - (btnRect.left + btnRect.width/2 - buttons.getBoundingClientRect().left);
+    const dy = (y + noBtn.offsetHeight/2) - (btnRect.top + btnRect.height/2 - buttons.getBoundingClientRect().top);
+    dist = Math.hypot(dx,dy);
+  }while(dist < safeRadius);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
 }
 
 ["touchstart","touchmove","mouseenter"].forEach(evt=>{
