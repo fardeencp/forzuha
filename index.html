@@ -31,6 +31,7 @@ body{
   width:90%;
   max-width:360px;
   transition: transform 0.25s ease;
+  font-family: 'Playfair Display', serif;
 }
 .card.pop{transform: scale(1.04);}
 h1{margin:0 0 12px;font-size:24px;color:var(--border);}
@@ -44,9 +45,10 @@ button{
   border-radius:999px;
   font-size:16px;
   position:absolute;
-  touch-action:none;
+  touch-action: none; /* critical for iOS */
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.2s ease;
+  transition: left 0.35s ease, top 0.35s ease, transform 0.2s ease;
+  font-family: 'Poppins', sans-serif;
 }
 #yesBtn{left:50%;top:10px;transform:translateX(-50%);}
 #noBtn{top:95px;left:50%;transform:translateX(-50%);outline:none;}
@@ -63,6 +65,7 @@ button{
   padding:4px 8px;
   width:130px;
   font-size:14px;
+  font-family:'Poppins', sans-serif;
 }
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 @keyframes scaleIn{from{transform:scale(0.6);opacity:0;}to{transform:scale(1);opacity:1;}}
@@ -79,11 +82,11 @@ button{
   <!-- Question -->
   <div id="questionBlock">
     <h1>Dearest Aysha Prettiest Zuha, will you be my Valentine (forever)? 💖</h1>
-    <p>Think clearly and say only yes 😌</p>
+    <p>Be honest… but your heart already knows 😌</p>
 
-    <div class="buttons">
+    <div class="buttons" id="btnContainer">
       <button id="yesBtn">Yes 💕</button>
-      <button id="noBtn">No 💔</button>
+      <button id="noBtn">No</button>
     </div>
   </div>
 
@@ -96,9 +99,9 @@ button{
         I wish the <input type="text" id="magicInput" placeholder="Type here"> pulls the earth's gravity and makes time run slower, when you're with me. I love you Aysha Zuha.
       </div>
     </div>
-    <div class="easter">I’d choose you in every universe 🌌</div>
-    <div class="final-line">It was always you.</div>
-    <div class="signature">— you know who</div>
+    <div class="easter">I’d still choose you in every universe 🌌</div>
+    <div class="final-line">This was always you.</div>
+    <div class="signature">— always yours</div>
   </div>
 
 </div>
@@ -106,31 +109,40 @@ button{
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const container = document.querySelector(".buttons");
+const container = document.getElementById("btnContainer");
 const card = document.getElementById("card");
 const afterYes = document.getElementById("afterYes");
 const questionBlock = document.getElementById("questionBlock");
 const magicInput = document.getElementById("magicInput");
 
-// NO button floats freely
+// Smooth NO button floating
 function moveNoButton(){
   const c = container.getBoundingClientRect();
   const b = noBtn.getBoundingClientRect();
+  const yes = yesBtn.getBoundingClientRect();
   const maxX = c.width - b.width;
   const maxY = c.height - b.height;
-  const safeRadius = 90;
+  const safeRadius = yes.width + 40;
   let x,y,dist;
   do {
     x = Math.random()*maxX;
     y = Math.random()*maxY;
-    dist = Math.hypot(x - c.width/2, y - 20);
+    const centerX = x + b.width/2;
+    const centerY = y + b.height/2;
+    const yesCenterX = yes.left - c.left + yes.width/2;
+    const yesCenterY = yes.top - c.top + yes.height/2;
+    dist = Math.hypot(centerX - yesCenterX, centerY - yesCenterY);
   } while(dist < safeRadius);
+  // Smooth transition handled by CSS 'transition' on button
   noBtn.style.left = x+"px";
   noBtn.style.top = y+"px";
 }
-noBtn.addEventListener("touchstart", moveNoButton,{passive:true});
-noBtn.addEventListener("touchmove", moveNoButton,{passive:true});
-noBtn.addEventListener("click", e=>{e.preventDefault(); moveNoButton();});
+
+// Attach touch + hover + click
+["touchstart","touchmove","mouseover","mouseenter"].forEach(evt=>{
+  noBtn.addEventListener(evt, moveNoButton,{passive:false});
+});
+noBtn.addEventListener("click", e=>{ e.preventDefault(); moveNoButton(); });
 
 // YES click
 yesBtn.addEventListener("click", ()=>{
@@ -149,10 +161,7 @@ yesBtn.addEventListener("click", ()=>{
     el.style.top="-30px";
     document.body.appendChild(el);
     const duration=rand(2200,3600);
-    el.animate([
-      {transform:"translateY(0)",opacity:0},
-      {transform:`translateY(${window.innerHeight+120}px) rotate(${rand(90,720)}deg)`,opacity:1}
-    ],{duration,easing:"ease-out"});
+    el.animate([{transform:"translateY(0)",opacity:0},{transform:`translateY(${window.innerHeight+120}px) rotate(${rand(90,720)}deg)`,opacity:1}],{duration,easing:"ease-out"});
     setTimeout(()=>el.remove(),duration);
   }
   for(let i=0;i<36;i++){setTimeout(()=>createHeart(window.innerWidth/2 + rand(-120,120)),i*40);}
