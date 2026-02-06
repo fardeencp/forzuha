@@ -32,7 +32,7 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.9);
       backdrop-filter: blur(14px);
       padding: 44px 34px;
       border-radius: 26px;
@@ -59,34 +59,9 @@
       font-size: 14px;
     }
 
-    .after-yes {
-      display: none;
-      margin-top: 22px;
-      animation: fadeUp 0.6s ease forwards;
-    }
-
-    .after-yes .line1 {
-      font-size: 16px;
-      font-weight: 600;
-      color: #ec4899;
-    }
-
-    .after-yes .line2 {
-      margin-top: 12px;
-      font-size: 14px;
-      color: #6b7280;
-      line-height: 1.5;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     .buttons {
       position: relative;
       height: 160px;
-      overflow: hidden;
     }
 
     button {
@@ -96,22 +71,24 @@
       font-size: 16px;
       position: absolute;
       touch-action: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
+    /* YES button */
     #yesBtn {
       background: var(--yes);
       color: white;
       left: 50%;
       top: 10px;
       transform: translateX(-50%);
-      z-index: 2;
     }
 
     #yesBtn:active {
       background: var(--yes-hover);
-      transform: translateX(-50%) scale(1.08);
+      transform: translateX(-50%) scale(1.06);
     }
 
+    /* NO button – no visual feedback */
     #noBtn {
       background: #e5e7eb;
       color: #374151;
@@ -119,19 +96,45 @@
       left: 50%;
       transform: translateX(-50%);
       transition: left 0.25s ease, top 0.25s ease;
+      outline: none;
     }
 
-    .particle {
-      position: fixed;
-      pointer-events: none;
-      font-size: 26px;
+    #noBtn:active,
+    #noBtn:focus {
+      background: #e5e7eb;
+    }
+
+    .after-yes {
+      display: none;
+      margin-top: 22px;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .line1 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ec4899;
+    }
+
+    .line2 {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #6b7280;
+      line-height: 1.5;
       opacity: 0;
-      z-index: 100;
+      animation: fadeUp 0.6s ease forwards;
+      animation-delay: 1.4s;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
+
   <div class="card" id="card">
     <h1>Aysha Zuha, will you be my Valentine? 💖</h1>
     <p>Be honest… but your heart already knows 😌</p>
@@ -156,19 +159,21 @@
     const card = document.getElementById("card");
     const afterYes = document.getElementById("afterYes");
 
+    /* move NO button silently */
     function moveNoButton() {
       const c = container.getBoundingClientRect();
       const b = noBtn.getBoundingClientRect();
 
-      const safeRadius = 90; // keep away from YES
+      const maxX = c.width - b.width;
+      const maxY = c.height - b.height;
+
       let x, y, dist;
+      const safeRadius = 90;
 
       do {
-        x = Math.random() * (c.width - b.width);
-        y = Math.random() * (c.height - b.height);
-        const yesCenterX = c.width / 2;
-        const yesCenterY = 25;
-        dist = Math.hypot(x - yesCenterX, y - yesCenterY);
+        x = Math.random() * maxX;
+        y = Math.random() * maxY;
+        dist = Math.hypot(x - c.width / 2, y - 20);
       } while (dist < safeRadius);
 
       noBtn.style.left = x + "px";
@@ -182,48 +187,16 @@
       moveNoButton();
     });
 
-    function rand(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    function createHeart(x) {
-      const el = document.createElement("div");
-      el.className = "particle";
-      el.textContent = "💖";
-      el.style.left = x + "px";
-      el.style.top = "-30px";
-      document.body.appendChild(el);
-
-      const duration = rand(2400, 3800);
-
-      el.animate([
-        { transform: "translateY(0)", opacity: 0 },
-        {
-          transform: `translateY(${window.innerHeight + 120}px) rotate(${rand(120,720)}deg)`,
-          opacity: 1
-        }
-      ], {
-        duration,
-        easing: "ease-out"
-      });
-
-      setTimeout(() => el.remove(), duration);
-    }
-
-    yesBtn.addEventListener("click", e => {
-      const x = e.clientX || window.innerWidth / 2;
-
+    /* YES click – popup only */
+    yesBtn.addEventListener("click", () => {
       card.classList.add("pop");
       setTimeout(() => card.classList.remove("pop"), 220);
-
-      for (let i = 0; i < 40; i++) {
-        setTimeout(() => createHeart(x + rand(-130, 130)), i * 45);
-      }
 
       yesBtn.style.display = "none";
       noBtn.style.display = "none";
       afterYes.style.display = "block";
     });
   </script>
+
 </body>
 </html>
