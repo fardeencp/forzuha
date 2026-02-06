@@ -104,8 +104,14 @@
 
     .after-yes {
       display: none;
-      margin-top: 10px;
+      margin-top: 8px;
       animation: fadeUp 0.6s ease forwards;
+    }
+
+    .bouquet {
+      font-size: 42px;
+      margin-bottom: 10px;
+      animation: scaleIn 0.6s ease forwards;
     }
 
     .line1 {
@@ -128,16 +134,22 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 
 <body>
 
   <div class="card" id="card">
-    <!-- Question section -->
+
+    <!-- Question -->
     <div id="questionBlock">
       <h1>Aysha Zuha, will you be my Valentine? 💖</h1>
-      <p>Think about it and only say yes 😌</p>
+      <p>Be honest… but your heart already knows 😌</p>
 
       <div class="buttons">
         <button id="yesBtn">Yes 💕</button>
@@ -147,11 +159,13 @@
 
     <!-- After YES -->
     <div class="after-yes" id="afterYes">
+      <div class="bouquet">🌷💐</div>
       <div class="line1">I knew you’d say yes 😌💘</div>
       <div class="line2">
         I wish the gargantua pulls the earth's gravity and makes time run slower , when you're with me. I love you Aysha Zuha
       </div>
     </div>
+
   </div>
 
   <script>
@@ -192,10 +206,7 @@
       card.classList.add("pop");
       setTimeout(() => card.classList.remove("pop"), 220);
 
-      // REMOVE question + buttons
       questionBlock.style.display = "none";
-
-      // SHOW popup message
       afterYes.style.display = "block";
     });
   </script>
