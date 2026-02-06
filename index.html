@@ -1,12 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta cha<!doctype html>
-<html lang="en">
-<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Will you be my Valentine?</title>
+  <title>For Aysha Zuha 💖</title>
 
   <style>
     :root {
@@ -35,14 +32,19 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
-      padding: 42px 32px;
-      border-radius: 24px;
-      box-shadow: 0 25px 45px rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(14px);
+      padding: 44px 34px;
+      border-radius: 26px;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.08);
       text-align: center;
       width: 90%;
       max-width: 360px;
+      transition: transform 0.25s ease;
+    }
+
+    .card.pop {
+      transform: scale(1.03);
     }
 
     h1 {
@@ -57,6 +59,14 @@
       font-size: 14px;
     }
 
+    .after-yes {
+      display: none;
+      margin-top: 18px;
+      font-size: 15px;
+      color: #ec4899;
+      font-weight: 600;
+    }
+
     .buttons {
       position: relative;
       height: 150px;
@@ -68,7 +78,6 @@
       padding: 14px 30px;
       border-radius: 999px;
       font-size: 16px;
-      cursor: pointer;
       position: absolute;
       touch-action: none;
     }
@@ -82,7 +91,7 @@
 
     #yesBtn:active {
       background: var(--yes-hover);
-      transform: translateX(-50%) scale(1.05);
+      transform: translateX(-50%) scale(1.06);
     }
 
     #noBtn {
@@ -100,18 +109,29 @@
       font-size: 26px;
       opacity: 0;
       z-index: 100;
+      animation: heartPop 0.4s ease-out;
+    }
+
+    @keyframes heartPop {
+      0% { transform: scale(0.6); }
+      60% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <h1>Will you be my Valentine? 💖</h1>
+  <div class="card" id="card">
+    <h1>Aysha Zuha, will you be my Valentine? 💖</h1>
     <p>I promise smiles, surprises and sweet moments.</p>
 
     <div class="buttons">
       <button id="yesBtn">Yes 💕</button>
       <button id="noBtn">No</button>
+    </div>
+
+    <div class="after-yes" id="afterYes">
+      I knew you’d say yes 😌💘
     </div>
   </div>
 
@@ -119,6 +139,8 @@
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const container = document.querySelector(".buttons");
+    const card = document.getElementById("card");
+    const afterYes = document.getElementById("afterYes");
 
     function moveNoButton() {
       const c = container.getBoundingClientRect();
@@ -134,7 +156,7 @@
       noBtn.style.top = y + "px";
     }
 
-    // iPhone / iPad touch behavior
+    // iOS-only friendly behavior
     noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
     noBtn.addEventListener("touchmove", moveNoButton, { passive: true });
     noBtn.addEventListener("click", e => {
@@ -158,7 +180,10 @@
 
       el.animate([
         { transform: "translateY(0)", opacity: 0 },
-        { transform: `translateY(${window.innerHeight + 120}px) rotate(${rand(90,720)}deg)`, opacity: 1 }
+        {
+          transform: `translateY(${window.innerHeight + 120}px) rotate(${rand(90,720)}deg)`,
+          opacity: 1
+        }
       ], {
         duration,
         easing: "ease-out"
@@ -169,185 +194,19 @@
 
     yesBtn.addEventListener("click", e => {
       const x = e.clientX || window.innerWidth / 2;
-      for (let i = 0; i < 35; i++) {
+
+      // soft haptic-feel pop
+      card.classList.add("pop");
+      setTimeout(() => card.classList.remove("pop"), 200);
+
+      for (let i = 0; i < 36; i++) {
         setTimeout(() => createHeart(x + rand(-120, 120)), i * 40);
       }
-      yesBtn.textContent = "Yay! 💘";
+
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+      afterYes.style.display = "block";
     });
   </script>
 </body>
 </html>
-rset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Will you be my Valentine?</title>
-
-  <style>
-    :root {
-      --bg1: #fff1f6;
-      --bg2: #fdf2f8;
-      --text: #111827;
-      --muted: #6b7280;
-      --yes: #ec4899;
-      --yes-hover: #db2777;
-      font-family: -apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-
-    body {
-      background: linear-gradient(180deg, var(--bg1), var(--bg2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
-      padding: 42px 32px;
-      border-radius: 24px;
-      box-shadow: 0 25px 45px rgba(0,0,0,0.08);
-      text-align: center;
-      width: 90%;
-      max-width: 360px;
-    }
-
-    h1 {
-      margin: 0 0 12px;
-      font-size: 24px;
-      color: var(--text);
-    }
-
-    p {
-      margin: 0 0 30px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .buttons {
-      position: relative;
-      height: 150px;
-      overflow: hidden;
-    }
-
-    button {
-      border: none;
-      padding: 14px 30px;
-      border-radius: 999px;
-      font-size: 16px;
-      cursor: pointer;
-      position: absolute;
-      touch-action: none;
-    }
-
-    #yesBtn {
-      background: var(--yes);
-      color: white;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    #yesBtn:active {
-      background: var(--yes-hover);
-      transform: translateX(-50%) scale(1.05);
-    }
-
-    #noBtn {
-      background: #e5e7eb;
-      color: #374151;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: left 0.25s ease, top 0.25s ease;
-    }
-
-    .particle {
-      position: fixed;
-      pointer-events: none;
-      font-size: 26px;
-      opacity: 0;
-      z-index: 100;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="card">
-    <h1>Will you be my Valentine? 💖</h1>
-    <p>I promise smiles, surprises and sweet moments.</p>
-
-    <div class="buttons">
-      <button id="yesBtn">Yes 💕</button>
-      <button id="noBtn">No</button>
-    </div>
-  </div>
-
-  <script>
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const container = document.querySelector(".buttons");
-
-    function moveNoButton() {
-      const c = container.getBoundingClientRect();
-      const b = noBtn.getBoundingClientRect();
-
-      const maxX = c.width - b.width;
-      const maxY = c.height - b.height;
-
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
-
-    // iPhone / iPad touch behavior
-    noBtn.addEventListener("touchstart", moveNoButton, { passive: true });
-    noBtn.addEventListener("touchmove", moveNoButton, { passive: true });
-    noBtn.addEventListener("click", e => {
-      e.preventDefault();
-      moveNoButton();
-    });
-
-    function rand(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    function createHeart(x) {
-      const el = document.createElement("div");
-      el.className = "particle";
-      el.textContent = "💖";
-      el.style.left = x + "px";
-      el.style.top = "-30px";
-      document.body.appendChild(el);
-
-      const duration = rand(2200, 3600);
-
-      el.animate([
-        { transform: "translateY(0)", opacity: 0 },
-        { transform: `translateY(${window.innerHeight + 120}px) rotate(${rand(90,720)}deg)`, opacity: 1 }
-      ], {
-        duration,
-        easing: "ease-out"
-      });
-
-      setTimeout(() => el.remove(), duration);
-    }
-
-    yesBtn.addEventListener("click", e => {
-      const x = e.clientX || window.innerWidth / 2;
-      for (let i = 0; i < 35; i++) {
-        setTimeout(() => createHeart(x + rand(-120, 120)), i * 40);
-      }
-      yesBtn.textContent = "Yay! 💘";
-    });
-  </script>
-</body>
-</html>
-
