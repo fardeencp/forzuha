@@ -4,12 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine Contract</title>
+
+<!-- Premium Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --text:#111827;
   --muted:#6b7280;
   --border:#1e3a8a;
-  font-family:-apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif;
+  font-family: 'Poppins', 'Playfair Display', -apple-system, BlinkMacSystemFont, Inter, system-ui, sans-serif;
 }
 *{box-sizing:border-box;}
 html,body{height:100%;margin:0;}
@@ -72,37 +76,19 @@ const canvas = document.getElementById("signCanvas");
 const ctx = canvas.getContext("2d");
 let drawing=false;
 
-// Resize canvas to match displayed size
-function resizeCanvas(){
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-}
+// Resize canvas
+function resizeCanvas(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
 resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+window.addEventListener('resize',resizeCanvas);
 
 // Draw helpers
-function startDraw(x,y){
-  drawing=true;
-  ctx.beginPath();
-  ctx.moveTo(x,y);
-}
-function draw(x,y){
-  if(!drawing) return;
-  ctx.lineTo(x,y);
-  ctx.strokeStyle="#1e3a8a";
-  ctx.lineWidth=2;
-  ctx.lineCap="round";
-  ctx.stroke();
-}
+function startDraw(x,y){drawing=true;ctx.beginPath();ctx.moveTo(x,y);}
+function draw(x,y){if(!drawing) return; ctx.lineTo(x,y); ctx.strokeStyle="#1e3a8a"; ctx.lineWidth=2; ctx.lineCap="round"; ctx.stroke();}
 function endDraw(){drawing=false;}
 
 // Mouse events
-canvas.addEventListener("mousedown",(e)=>{
-  startDraw(e.offsetX,e.offsetY);
-});
-canvas.addEventListener("mousemove",(e)=>{
-  draw(e.offsetX,e.offsetY);
-});
+canvas.addEventListener("mousedown",(e)=>startDraw(e.offsetX,e.offsetY));
+canvas.addEventListener("mousemove",(e)=>draw(e.offsetX,e.offsetY));
 canvas.addEventListener("mouseup",endDraw);
 canvas.addEventListener("mouseleave",endDraw);
 
