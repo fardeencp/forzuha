@@ -1,144 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Just For You 💗</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>For Aysha Zuha 💖</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
+:root {
+  --bg1:#fff1f6;
+  --bg2:#fdf2f8;
+  --text:#111827;
+  --muted:#6b7280;
+  --pink:#ec4899;
+}
 
-html,body{
+* { box-sizing:border-box; }
+
+html,body {
   height:100%;
   margin:0;
 }
 
-body{
-  background:linear-gradient(180deg,#fff1f6,#fde7f3);
+body {
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
   display:flex;
   align-items:center;
   justify-content:center;
-  font-family:'Inter',sans-serif;
   overflow:hidden;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
 }
 
-.card{
-  background:rgba(255,255,255,0.95);
+.card {
+  background:rgba(255,255,255,0.94);
+  padding:48px 34px;
+  border-radius:28px;
+  box-shadow:0 30px 50px rgba(0,0,0,0.08);
   width:90%;
   max-width:360px;
-  padding:44px 28px;
-  border-radius:26px;
   text-align:center;
-  box-shadow:0 30px 60px rgba(0,0,0,.08);
   position:relative;
+  z-index:2;
 }
 
-h1{
+h1 {
   font-family:'Playfair Display',serif;
   font-size:26px;
-  margin-bottom:14px;
-  color:#111;
+  line-height:1.25;
+  margin:0 0 14px;
+  color:var(--text);
 }
 
-p{
+p {
   font-size:14px;
-  color:#6b7280;
+  color:var(--muted);
+  margin:0;
 }
 
-.buttons{
+.buttons {
   position:relative;
-  height:180px;
+  height:160px;
   margin-top:28px;
 }
 
-button{
-  position:absolute;
+button {
   border:none;
-  padding:14px 36px;
+  padding:14px 34px;
   border-radius:999px;
   font-size:16px;
   font-family:'Inter',sans-serif;
-  transition:left .25s ease, top .25s ease;
+  position:absolute;
   -webkit-tap-highlight-color:transparent;
 }
 
-#yes{
-  background:#ec4899;
+#yesBtn {
+  background:var(--pink);
   color:white;
   left:50%;
   top:10px;
   transform:translateX(-50%);
 }
 
-#no{
+#noBtn {
   background:#e5e7eb;
-  color:#111;
+  color:#374151;
   left:50%;
-  top:90px;
+  top:95px;
   transform:translateX(-50%);
-  pointer-events:auto;
 }
 
-/* disable all visual click feedback on NO */
-#no:active,
-#no:focus{
-  outline:none;
-  background:#e5e7eb;
+.after-yes {
+  display:none;
 }
 
-.popup{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.96);
+.stack {
   display:flex;
-  align-items:center;
-  justify-content:center;
   flex-direction:column;
+  align-items:center;
+  gap:12px;
+  animation:fadeUp 0.8s ease forwards;
+}
+
+.bouquet {
+  font-size:46px;
+  cursor:pointer;
+}
+
+.line1 {
+  font-size:16px;
+  font-weight:600;
+  color:var(--pink);
+}
+
+.line2 {
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.6;
+  max-width:280px;
+}
+
+.easter {
+  display:none;
+  font-size:13px;
+  color:#9d174d;
+  font-style:italic;
+  margin-top:6px;
+}
+
+.final-line {
   opacity:0;
-  pointer-events:none;
-  transition:opacity .6s ease;
-  z-index:10;
+  font-size:14px;
+  font-weight:500;
+  color:#9d174d;
+  letter-spacing:0.6px;
+  margin-top:14px;
+  animation:softFade 1.8s ease forwards;
 }
 
-.popup.show{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.popup h2{
+.signature {
+  margin-top:22px;
   font-family:'Dancing Script',cursive;
-  font-size:30px;
-  color:#ec4899;
-  margin-top:18px;
-  opacity:0;
-  animation:fadeIn .8s ease forwards .4s;
+  font-size:18px;
+  color:#9ca3af;
 }
 
-.tulips{
-  width:160px;
-  opacity:0;
-  animation:fadeIn .8s ease forwards .2s;
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to { opacity:1; transform:translateY(0); }
 }
 
-@keyframes fadeIn{
-  to{opacity:1}
+@keyframes softFade {
+  from { opacity:0; transform:translateY(6px); }
+  to { opacity:1; transform:translateY(0); }
 }
 
-.heart,.pop{
+/* Firecrackers */
+.confetti {
   position:fixed;
-  pointer-events:none;
-  animation:fly 2.2s linear forwards;
+  width:8px;
+  height:14px;
+  top:-20px;
+  animation:fall linear forwards;
+  z-index:1;
 }
 
-@keyframes fly{
-  from{
-    transform:translateY(0) scale(1);
-    opacity:1;
-  }
-  to{
-    transform:translateY(-600px) scale(1.4);
+@keyframes fall {
+  to {
+    transform:translateY(120vh) rotate(720deg);
     opacity:0;
   }
 }
@@ -147,66 +177,88 @@ button{
 
 <body>
 
-<div class="card" id="card">
-  <h1>Aysha Zuha,<br>will you be my Valentine? 💖</h1>
-  <p>I was always hoping it would be you.</p>
+<div class="card">
 
-  <div class="buttons" id="zone">
-    <button id="yes">Yes 💕</button>
-    <button id="no">No</button>
+  <!-- QUESTION -->
+  <div id="question">
+    <h1>Dearest Aysha Prettiest Zuha,<br>will you be my Valentine (forever)? 💖</h1>
+    <p>Be honest… your heart already knows 😌</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No</button>
+    </div>
   </div>
-</div>
 
-<div class="popup" id="popup">
-  <img class="tulips" src="https://pngimg.com/uploads/tulip/tulip_PNG132.png" alt="Tulips">
-  <h2>It was always you 🌷</h2>
+  <!-- AFTER YES -->
+  <div class="after-yes" id="afterYes">
+    <div class="stack">
+      <div class="bouquet" id="bouquet">🌷💐</div>
+
+      <div class="line1">I knew you’d say yes 😌💘</div>
+
+      <div class="line2">
+        I wish the gargantua pulls the earth's gravity and makes time run slower, when you're with me. I love you Aysha Zuha
+      </div>
+
+      <div class="easter" id="easter">
+        I’d still choose you in every universe 🌌
+      </div>
+
+      <div class="final-line" id="finalLine">
+        This was always you.
+      </div>
+
+      <div class="signature">— always yours</div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-const noBtn = document.getElementById("no");
-const zone = document.getElementById("zone");
-const yesBtn = document.getElementById("yes");
-const popup = document.getElementById("popup");
-const card = document.getElementById("card");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const question = document.getElementById("question");
+const afterYes = document.getElementById("afterYes");
+const bouquet = document.getElementById("bouquet");
+const easter = document.getElementById("easter");
+const finalLine = document.getElementById("finalLine");
 
-// FLOATING NO BUTTON (iOS safe)
-zone.addEventListener("touchmove", e => {
-  const touch = e.touches[0];
-  const btn = noBtn.getBoundingClientRect();
+// NO button escape (no visual click)
+noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("click", moveNo);
 
-  const dx = Math.abs(touch.clientX - (btn.left + btn.width/2));
-  const dy = Math.abs(touch.clientY - (btn.top + btn.height/2));
+function moveNo() {
+  noBtn.style.left = Math.random() * 200 + "px";
+  noBtn.style.top = Math.random() * 120 + "px";
+}
 
-  if(dx < 80 && dy < 60){
-    const maxX = zone.clientWidth - btn.width;
-    const maxY = zone.clientHeight - btn.height;
-
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top  = y + "px";
-  }
-},{passive:true});
-
-// YES CLICK
+// YES click
 yesBtn.addEventListener("click", () => {
-  card.style.display = "none";
-  popup.classList.add("show");
-  burst();
+  question.style.display = "none";
+  afterYes.style.display = "block";
+  fireworks();
+
+  setTimeout(() => {
+    finalLine.style.opacity = "1";
+  }, 4500);
 });
 
-// HEARTS + POPPERS
-function burst(){
-  for(let i=0;i<40;i++){
-    const el = document.createElement("div");
-    el.className = Math.random() > .5 ? "heart" : "pop";
-    el.textContent = el.className === "heart" ? "💖" : "🎉";
-    el.style.left = Math.random()*100 + "vw";
-    el.style.bottom = "-20px";
-    el.style.fontSize = 18 + Math.random()*20 + "px";
-    document.body.appendChild(el);
-    setTimeout(()=>el.remove(),2200);
+// Easter egg
+bouquet.addEventListener("click", () => {
+  easter.style.display = "block";
+});
+
+// Firecrackers
+function fireworks() {
+  for (let i = 0; i < 140; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * window.innerWidth + "px";
+    c.style.background = `hsl(${Math.random()*360},80%,60%)`;
+    c.style.animationDuration = 2 + Math.random() * 2 + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4000);
   }
 }
 </script>
