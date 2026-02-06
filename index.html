@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Valentine</title>
+<title>For Her 🤍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
@@ -23,89 +23,105 @@ html, body {
 }
 
 body {
-  background:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("bg.jpg") center/cover no-repeat;
-}
-
-.container {
-  height: 100%;
+  background: url("bg.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* CARD */
 .card {
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(10px);
+  border-radius: 26px;
+  padding: 36px 28px;
+  width: 90%;
+  max-width: 360px;
   text-align: center;
-  padding: 24px;
-  color: #fff;
+  box-shadow: 0 25px 45px rgba(0,0,0,0.12);
+  position: relative;
 }
 
+/* QUESTION */
 .question {
   font-family: 'Playfair Display', serif;
-  font-size: 28px;
-  margin-bottom: 32px;
+  font-size: 26px;
+  color: #111827;
+  margin-bottom: 10px;
   transition: opacity 0.6s ease;
 }
 
+.sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 28px;
+}
+
+/* BUTTONS */
 .buttons {
   position: relative;
-  width: 240px;
-  height: 120px;
-  margin: auto;
+  height: 130px;
 }
 
 button {
   position: absolute;
-  padding: 14px 28px;
+  padding: 14px 30px;
   border-radius: 999px;
   border: none;
   font-size: 16px;
-  cursor: pointer;
 }
 
+/* YES */
 #yesBtn {
+  background: #ec4899;
+  color: white;
   left: 50%;
   transform: translateX(-50%);
-  background: #ffffff;
-  color: #111;
-  font-weight: 500;
 }
 
+/* NO */
 #noBtn {
-  background: rgba(255,255,255,0.15);
+  background: #e5e7eb;
   color: transparent;
-  backdrop-filter: blur(6px);
   left: 50%;
-  top: 60px;
+  top: 70px;
   transform: translateX(-50%);
-  pointer-events: auto;
 }
 
+/* AFTER YES */
 .popup {
-  opacity: 0;
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: rgba(255,255,255,0.85);
+  display: none;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+.bouquet {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.easter {
   font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  transition: opacity 1.2s ease;
-  pointer-events: none;
+  font-size: 18px;
+  color: #ec4899;
+  margin-bottom: 8px;
 }
 
-.popup.show {
-  opacity: 1;
+.final-line {
+  font-size: 16px;
+  color: #374151;
+  margin-bottom: 12px;
 }
 
+.signature {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+/* EFFECTS */
 .hearts, .poppers {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  overflow: hidden;
 }
 
 .heart, .pop {
@@ -121,7 +137,7 @@ button {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: white;
+  background: #ec4899;
 }
 
 @keyframes fall {
@@ -130,93 +146,92 @@ button {
     opacity: 0;
   }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
 <body>
-<div class="container">
-  <div class="card">
-    <div class="question" id="question">
-      Will you be my Valentine?
-    </div>
+
+<div class="card" id="card">
+
+  <!-- QUESTION -->
+  <div id="questionBlock">
+    <div class="question">Will you be my Valentine?</div>
+    <div class="sub">Be honest… but your heart already knows 😌</div>
 
     <div class="buttons" id="buttons">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn" aria-hidden="true">No</button>
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No</button>
     </div>
   </div>
-</div>
 
-<div class="popup" id="popup">
-  <div>
-    I’d still choose you in every universe 🌌<br><br>
-    <span style="font-size:22px; opacity:0.85;">This was always you.</span><br><br>
-    <span style="font-size:18px; opacity:0.6;">— always yours</span>
+  <!-- AFTER YES -->
+  <div class="popup" id="popup">
+    <div class="bouquet">🌷💐</div>
+    <div class="easter">I’d still choose you in every universe 🌌</div>
+    <div class="final-line">This was always you.</div>
+    <div class="signature">— always yours</div>
   </div>
+
 </div>
 
 <div class="hearts" id="hearts"></div>
 <div class="poppers" id="poppers"></div>
 
 <script>
-const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById('yesBtn');
-const popup = document.getElementById('popup');
-const question = document.getElementById('question');
-const buttons = document.getElementById('buttons');
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const buttons = document.getElementById("buttons");
+const popup = document.getElementById("popup");
+const questionBlock = document.getElementById("questionBlock");
 
-function moveNoButton(x, y) {
+function moveNo() {
   const maxX = buttons.clientWidth - noBtn.offsetWidth;
   const maxY = buttons.clientHeight - noBtn.offsetHeight;
 
-  const randX = Math.random() * maxX;
-  const randY = Math.random() * maxY;
-
-  noBtn.style.left = randX + 'px';
-  noBtn.style.top = randY + 'px';
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
 }
 
-['touchstart','mousemove'].forEach(evt => {
-  noBtn.addEventListener(evt, e => {
-    moveNoButton();
-  });
+["touchstart", "mousemove"].forEach(evt => {
+  noBtn.addEventListener(evt, moveNo);
 });
 
-yesBtn.addEventListener('click', () => {
-  question.style.opacity = '0';
-  buttons.style.opacity = '0';
-
-  setTimeout(() => {
-    popup.classList.add('show');
-    launchHearts();
-    launchPoppers();
-  }, 700);
+yesBtn.addEventListener("click", () => {
+  questionBlock.style.display = "none";
+  popup.style.display = "block";
+  launchHearts();
+  launchPoppers();
 });
 
 function launchHearts() {
-  for (let i = 0; i < 40; i++) {
-    const h = document.createElement('div');
-    h.className = 'heart';
-    h.innerText = '💖';
-    h.style.left = Math.random() * 100 + 'vw';
-    h.style.top = '-10vh';
-    h.style.animationDuration = (3 + Math.random() * 3) + 's';
-    document.getElementById('hearts').appendChild(h);
+  for (let i = 0; i < 36; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = "💖";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = 3 + Math.random() * 3 + "s";
+    document.getElementById("hearts").appendChild(h);
     setTimeout(() => h.remove(), 6000);
   }
 }
 
 function launchPoppers() {
-  for (let i = 0; i < 120; i++) {
-    const p = document.createElement('div');
-    p.className = 'pop';
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.top = Math.random() * 20 + 'vh';
-    p.style.animationDuration = (2 + Math.random() * 2) + 's';
-    document.getElementById('poppers').appendChild(p);
+  for (let i = 0; i < 100; i++) {
+    const p = document.createElement("div");
+    p.className = "pop";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.top = Math.random() * 20 + "vh";
+    p.style.animationDuration = 2 + Math.random() * 2 + "s";
+    document.getElementById("poppers").appendChild(p);
     setTimeout(() => p.remove(), 4000);
   }
 }
 </script>
+
 </body>
 </html>
