@@ -39,7 +39,6 @@ body {
   max-width: 360px;
   text-align: center;
   box-shadow: 0 25px 45px rgba(0,0,0,0.12);
-  position: relative;
 }
 
 /* QUESTION */
@@ -48,7 +47,6 @@ body {
   font-size: 26px;
   color: #111827;
   margin-bottom: 10px;
-  transition: opacity 0.6s ease;
 }
 
 .sub {
@@ -69,20 +67,23 @@ button {
   border-radius: 999px;
   border: none;
   font-size: 16px;
+  color: white;
 }
 
-/* YES */
+/* BLUE THEME */
 #yesBtn {
-  background: #ec4899;
-  color: white;
+  background: #2563eb; /* blue */
   left: 50%;
   transform: translateX(-50%);
 }
 
-/* NO */
+#yesBtn:active {
+  background: #1e40af;
+  transform: translateX(-50%) scale(1.06);
+}
+
 #noBtn {
-  background: #e5e7eb;
-  color: transparent;
+  background: #2563eb; /* same blue */
   left: 50%;
   top: 70px;
   transform: translateX(-50%);
@@ -102,7 +103,7 @@ button {
 .easter {
   font-family: 'Playfair Display', serif;
   font-size: 18px;
-  color: #ec4899;
+  color: #2563eb;
   margin-bottom: 8px;
 }
 
@@ -137,7 +138,7 @@ button {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ec4899;
+  background: #2563eb;
 }
 
 @keyframes fall {
@@ -156,7 +157,7 @@ button {
 
 <body>
 
-<div class="card" id="card">
+<div class="card">
 
   <!-- QUESTION -->
   <div id="questionBlock">
@@ -164,7 +165,7 @@ button {
     <div class="sub">Be honest… but your heart already knows 😌</div>
 
     <div class="buttons" id="buttons">
-      <button id="yesBtn">Yes 💕</button>
+      <button id="yesBtn">Yes 💙</button>
       <button id="noBtn">No</button>
     </div>
   </div>
@@ -212,7 +213,7 @@ function launchHearts() {
   for (let i = 0; i < 36; i++) {
     const h = document.createElement("div");
     h.className = "heart";
-    h.innerText = "💖";
+    h.innerText = "💙";
     h.style.left = Math.random() * 100 + "vw";
     h.style.animationDuration = 3 + Math.random() * 3 + "s";
     document.getElementById("hearts").appendChild(h);
