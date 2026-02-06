@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@400;500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 
 <style>
-:root {
+:root{
   --bg1:#fff1f6;
   --bg2:#fdf2f8;
   --text:#111827;
@@ -16,138 +16,162 @@
   --pink:#ec4899;
 }
 
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-html, body {
-  height: 100%;
-  margin: 0;
+html,body{
+  height:100%;
+  margin:0;
 }
 
-body {
-  background: linear-gradient(180deg, var(--bg1), var(--bg2));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+body{
+  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
 }
 
-.card {
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(14px);
-  padding: 46px 34px;
-  border-radius: 28px;
-  box-shadow: 0 30px 50px rgba(0,0,0,0.08);
-  width: 90%;
-  max-width: 360px;
-  text-align: center;
-  position: relative;
-  z-index: 2;
+.card{
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(14px);
+  padding:46px 34px;
+  border-radius:28px;
+  box-shadow:0 30px 50px rgba(0,0,0,.08);
+  width:90%;
+  max-width:360px;
+  text-align:center;
+  position:relative;
+  z-index:2;
 }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  line-height: 1.25;
-  margin: 0 0 14px;
-  color: var(--text);
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:26px;
+  line-height:1.25;
+  margin:0 0 14px;
+  color:var(--text);
 }
 
-p {
-  font-size: 14px;
-  color: var(--muted);
-  margin: 0 0 26px;
+p{
+  font-size:14px;
+  color:var(--muted);
+  margin:0 0 26px;
 }
 
-.buttons {
-  position: relative;
-  height: 170px;
+.buttons{
+  position:relative;
+  height:170px;
 }
 
-button {
-  border: none;
-  padding: 14px 34px;
-  border-radius: 999px;
-  font-size: 16px;
-  position: absolute;
-  touch-action: none;
-  -webkit-tap-highlight-color: transparent;
-  font-family: 'Inter', sans-serif;
+button{
+  border:none;
+  padding:14px 34px;
+  border-radius:999px;
+  font-size:16px;
+  position:absolute;
+  touch-action:none;
+  -webkit-tap-highlight-color:transparent;
+  font-family:'Inter',sans-serif;
 }
 
-#yesBtn {
-  background: var(--pink);
-  color: #fff;
-  left: 50%;
-  top: 8px;
-  transform: translateX(-50%);
+#yesBtn{
+  background:var(--pink);
+  color:#fff;
+  left:50%;
+  top:8px;
+  transform:translateX(-50%);
 }
 
-#yesBtn:active {
-  transform: translateX(-50%) scale(1.06);
+#yesBtn:active{
+  transform:translateX(-50%) scale(1.06);
 }
 
-#noBtn {
-  background: #e5e7eb;
-  color: #374151;
-  left: 50%;
-  top: 95px;
-  transform: translateX(-50%);
-  transition: left .25s ease, top .25s ease;
+#noBtn{
+  background:#e5e7eb;
+  color:#374151;
+  left:50%;
+  top:95px;
+  transform:translateX(-50%);
+  transition:left .25s ease, top .25s ease;
 }
 
-#noBtn:active,
-#noBtn:focus {
-  background: #e5e7eb;
+.after-yes{
+  display:none;
+  opacity:0;
+  animation:fadeIn 1s ease forwards;
 }
 
-.after-yes {
-  display: none;
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
+.bouquet{
+  font-size:44px;
+  margin-bottom:10px;
 }
 
-.bouquet {
-  font-size: 44px;
-  margin-bottom: 10px;
+.line1{
+  font-size:16px;
+  font-weight:600;
+  color:var(--pink);
 }
 
-.line1 {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--pink);
+.line2{
+  margin-top:14px;
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.5;
 }
 
-.line2 {
-  margin-top: 14px;
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.5;
+/* restored romantic extras */
+.easter{
+  margin-top:18px;
+  font-family:'Dancing Script',cursive;
+  font-size:18px;
+  color:#9d174d;
+  opacity:0;
+  animation:fadeIn 1s ease forwards;
+  animation-delay:1.2s;
 }
 
-.particle {
-  position: fixed;
-  font-size: 22px;
-  pointer-events: none;
-  z-index: 1;
-  animation: floatUp 2.8s ease-out forwards;
+.final-line{
+  margin-top:8px;
+  font-weight:500;
+  color:#374151;
+  opacity:0;
+  animation:fadeIn 1s ease forwards;
+  animation-delay:1.8s;
 }
 
-@keyframes floatUp {
-  from { transform: translateY(0) scale(0.6); opacity: 1; }
-  to { transform: translateY(-120vh) scale(1.1); opacity: 0; }
+.signature{
+  margin-top:12px;
+  font-size:13px;
+  color:#6b7280;
+  opacity:0;
+  animation:fadeIn 1s ease forwards;
+  animation-delay:2.4s;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+.particle{
+  position:fixed;
+  font-size:22px;
+  pointer-events:none;
+  z-index:1;
+  animation:floatUp 2.8s ease-out forwards;
+}
+
+@keyframes floatUp{
+  from{transform:translateY(0) scale(.6);opacity:1}
+  to{transform:translateY(-120vh) scale(1.1);opacity:0}
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
 
 <body>
 
-<div class="card" id="card">
+<div class="card">
 
   <!-- Question -->
   <div id="questionBlock">
@@ -167,57 +191,54 @@ button {
     <div class="line2">
       I wish the gargantua pulls the earth's gravity and makes time run slower , when you're with me. I love you Aysha Zuha
     </div>
+
+    <div class="easter" id="easter">I’d still choose you in every universe 🌌</div>
+    <div class="final-line" id="finalLine">This was always you.</div>
+    <div class="signature">— always yours</div>
   </div>
 
 </div>
 
 <script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const buttons = document.getElementById("buttons");
-const questionBlock = document.getElementById("questionBlock");
-const afterYes = document.getElementById("afterYes");
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const buttons=document.getElementById("buttons");
+const questionBlock=document.getElementById("questionBlock");
+const afterYes=document.getElementById("afterYes");
 
-function moveNoButton() {
-  const c = buttons.getBoundingClientRect();
-  const b = noBtn.getBoundingClientRect();
-
-  const maxX = c.width - b.width;
-  const maxY = c.height - b.height;
-
-  let x = Math.random() * maxX;
-  let y = Math.random() * maxY;
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
+function moveNoButton(){
+  const c=buttons.getBoundingClientRect();
+  const b=noBtn.getBoundingClientRect();
+  const x=Math.random()*(c.width-b.width);
+  const y=Math.random()*(c.height-b.height);
+  noBtn.style.left=x+"px";
+  noBtn.style.top=y+"px";
 }
 
-// iOS-friendly floating behavior
-buttons.addEventListener("touchstart", moveNoButton, { passive: true });
-buttons.addEventListener("touchmove", moveNoButton, { passive: true });
-noBtn.addEventListener("click", e => {
+buttons.addEventListener("touchstart",moveNoButton,{passive:true});
+buttons.addEventListener("touchmove",moveNoButton,{passive:true});
+noBtn.addEventListener("click",e=>{
   e.preventDefault();
   moveNoButton();
 });
 
-// firecrackers + hearts
-function popParticles() {
-  const icons = ["💖","💘","🎉","✨","💞"];
-  for (let i = 0; i < 45; i++) {
-    const p = document.createElement("div");
-    p.className = "particle";
-    p.textContent = icons[Math.floor(Math.random()*icons.length)];
-    p.style.left = Math.random()*100 + "vw";
-    p.style.bottom = "-20px";
-    p.style.animationDelay = (Math.random()*0.6) + "s";
+function popParticles(){
+  const icons=["💖","💘","🎉","✨","💞"];
+  for(let i=0;i<45;i++){
+    const p=document.createElement("div");
+    p.className="particle";
+    p.textContent=icons[Math.floor(Math.random()*icons.length)];
+    p.style.left=Math.random()*100+"vw";
+    p.style.bottom="-20px";
+    p.style.animationDelay=Math.random()*.6+"s";
     document.body.appendChild(p);
-    setTimeout(() => p.remove(), 3000);
+    setTimeout(()=>p.remove(),3000);
   }
 }
 
-yesBtn.addEventListener("click", () => {
-  questionBlock.style.display = "none";
-  afterYes.style.display = "block";
+yesBtn.addEventListener("click",()=>{
+  questionBlock.style.display="none";
+  afterYes.style.display="block";
   popParticles();
 });
 </script>
