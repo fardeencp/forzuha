@@ -134,6 +134,17 @@ button{
   line-height:1.5;
 }
 
+#magicInput{
+  border:none;
+  border-bottom:2px dashed #1e3a8a;
+  background:none;
+  font-weight:600;
+  color:#1e3a8a;
+  width:120px;
+  text-align:center;
+  outline:none;
+}
+
 /* EFFECTS */
 .hearts,.poppers{
   position:fixed;
@@ -178,7 +189,7 @@ button{
       Dearest Aysha Prettiest Zuha,<br>
       will you be my Valentine (forever)? 🤍
     </div>
-    <div class="sub">Think about it and say only yes 😌</div>
+    <div class="sub">Think about it and only say yes 😌</div>
 
     <div class="buttons" id="buttons">
       <button id="yesBtn">Yes 💙</button>
@@ -207,8 +218,7 @@ button{
     </div>
 
     <div class="time-line">
-      I wish the gargantua pulls the earth's gravity and makes time run slower,
-      when you're with me. I love you Aysha Zuha.
+      I wish the <input type="text" id="magicInput" placeholder="something magical"> pulls the earth's gravity and makes time run slower, when you're with me. I love you Aysha Zuha.
     </div>
   </div>
 
@@ -223,6 +233,7 @@ const yesBtn=document.getElementById("yesBtn");
 const buttons=document.getElementById("buttons");
 const popup=document.getElementById("popup");
 const questionBlock=document.getElementById("questionBlock");
+const magicInput=document.getElementById("magicInput");
 
 /* NO button escapes with SAFE RADIUS from YES */
 function moveNo(){
@@ -257,6 +268,24 @@ yesBtn.addEventListener("click",()=>{
   popup.style.display="block";
   launchHearts();
   launchPoppers();
+});
+
+/* INPUT FILL-IN */
+magicInput.addEventListener("keypress", function(e){
+  if(e.key === "Enter"){
+    const val = magicInput.value.trim();
+    if(val){
+      const span=document.createElement("span");
+      span.textContent=val;
+      span.style.fontWeight="600";
+      span.style.color="#1e3a8a";
+      magicInput.replaceWith(span);
+
+      // hearts & poppers again
+      launchHearts();
+      launchPoppers();
+    }
+  }
 });
 
 /* EFFECTS */
