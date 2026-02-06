@@ -45,13 +45,13 @@ body {
 .question {
   font-family: 'Playfair Display', serif;
   font-size: 26px;
-  color: #111827;
+  color: #0f172a;
   margin-bottom: 10px;
 }
 
 .sub {
   font-size: 14px;
-  color: #6b7280;
+  color: #475569;
   margin-bottom: 28px;
 }
 
@@ -63,27 +63,28 @@ body {
 
 button {
   position: absolute;
-  padding: 14px 30px;
+  padding: 14px 32px;
   border-radius: 999px;
-  border: none;
+  background: white;
+  border: 2px solid #1e3a8a; /* dark blue */
+  color: #1e3a8a;            /* dark blue text */
   font-size: 16px;
-  color: white;
+  font-weight: 500;
 }
 
-/* BLUE THEME */
+/* YES */
 #yesBtn {
-  background: #2563eb; /* blue */
   left: 50%;
   transform: translateX(-50%);
 }
 
 #yesBtn:active {
-  background: #1e40af;
   transform: translateX(-50%) scale(1.06);
+  background: #eff6ff; /* very light blue press */
 }
 
+/* NO */
 #noBtn {
-  background: #2563eb; /* same blue */
   left: 50%;
   top: 70px;
   transform: translateX(-50%);
@@ -103,19 +104,19 @@ button {
 .easter {
   font-family: 'Playfair Display', serif;
   font-size: 18px;
-  color: #2563eb;
+  color: #1e3a8a;
   margin-bottom: 8px;
 }
 
 .final-line {
   font-size: 16px;
-  color: #374151;
+  color: #334155;
   margin-bottom: 12px;
 }
 
 .signature {
   font-size: 14px;
-  color: #9ca3af;
+  color: #94a3b8;
 }
 
 /* EFFECTS */
@@ -138,7 +139,7 @@ button {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #2563eb;
+  background: #1e3a8a;
 }
 
 @keyframes fall {
